@@ -33,6 +33,7 @@ export default function Contacts() {
             <th scope="col">Jméno</th>
             <th scope="col">Příjmení</th>
             <th scope="col">Email</th>
+            <th scope="col">Action</th>
           </tr>
           </thead>
           <tbody>
@@ -43,6 +44,11 @@ export default function Contacts() {
                   <td>{contact.firstname}</td>
                   <td>{contact.lastname}</td>
                   <td>{contact.email}</td>
+                  <td>
+                    <button className='btn btn-outline-dark mx-2'>Detail</button>
+                    <button className='btn btn-outline-dark mx-2'>Upravit</button>
+                    <button className='btn btn-outline-dark mx-2'>Smazat</button>
+                  </td>
               </tr>
               ))
             }
