@@ -1,20 +1,54 @@
-import React from 'react'
-import Aside from '../../components/nav/Aside'
-import NavbarPrivate from '../../components/nav/NavbarPrivate'
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+
+import Aside from '../../components/nav/Aside';
+import NavbarPrivate from '../../components/nav/NavbarPrivate';
+
+import './css/Layout.css'
 
 export default function Contacts() {
-  return (
-    <div class="container-fluid">
-    <div class="row">
-    
-    <Aside/>
-    <main class="col-10 offset-2 p-3">
-    <NavbarPrivate/>
-      <h1>Main Content</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </main>
 
-  </div>
-</div>
+  const [contacts, setContacts]=useState([])
+
+  useEffect(()=>{
+    loadContacts();
+  },[]);
+
+  const loadContacts=async()=>{
+    const result = await axios.get('http://localhost:8080/contacts')
+    setContacts(result.data);
+  }
+
+  return (
+    <div>
+      <Aside/>
+      <NavbarPrivate/>
+      <main>
+        <h2>Adresář</h2>
+        <button className='btn btn-outline-dark'>Přidat kontakt</button>
+        <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Jméno</th>
+            <th scope="col">Příjmení</th>
+            <th scope="col">Email</th>
+          </tr>
+          </thead>
+          <tbody>
+            {
+              contacts.map((contact, index)=>(
+                <tr>
+                  <th scope="row" key={index}>{index+1}</th>
+                  <td>{contact.firstname}</td>
+                  <td>{contact.lastname}</td>
+                  <td>{contact.email}</td>
+              </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </main>
+    </div>
   )
 }

@@ -1,0 +1,17 @@
+.aside{
+    width: 15vw;
+    height: 100vh;
+    background-color: rgb(36, 36, 36);
+    border-radius: 0 15px 15px 0;
+    padding:20px;
+    color: white;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 991px) {
+    .aside{
+        display: none;
+    }
+}

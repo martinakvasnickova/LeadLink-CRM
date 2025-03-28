@@ -1,0 +1,12 @@
+.custom-navbar {
+    width: 85vw;
+    margin-left: 15vw;
+    box-shadow: 1px 1px 12px gray;
+  }
+
+  @media (max-width: 991px) {
+    .custom-navbar{
+        margin: 0;
+        width: 100vw;
+    }
+}
