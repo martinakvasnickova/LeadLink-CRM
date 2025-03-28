@@ -1,0 +1,4 @@
+Aplikace pro správu vztahů s klienty (LeadLink CRM)
+
+Aplikace bude sloužit k efektivní správě zákazníků a obchodních případů pro malé týmy nebo freelancery.
+Umožní udržovat databázi klientů s jejich kontaktními informacemi, sledovat obchodní případy na kanban boardu a poskytovat základní reporting o výkonnosti obchodu. 
