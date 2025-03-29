@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 import Aside from '../../components/nav/Aside';
 import NavbarPrivate from '../../components/nav/NavbarPrivate';
+import AddContact from '../../hooks/contacts/AddContact';
 
 import './css/Layout.css'
 
@@ -25,7 +27,15 @@ export default function Contacts() {
       <NavbarPrivate/>
       <main>
         <h2>Adresář</h2>
-        <button className='btn btn-outline-dark'>Přidat kontakt</button>
+        
+        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Přidat Kontakt
+        </button>
+        <AddContact/>
+
+
+       
+
         <table class="table table-striped table-hover">
         <thead>
           <tr>
