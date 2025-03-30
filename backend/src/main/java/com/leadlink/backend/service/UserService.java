@@ -1,2 +1,60 @@
-package com.leadlink.backend.service;public class UserService {
+package com.leadlink.backend.service;
+
+import com.leadlink.backend.exception.ContactNotFoundException;
+import com.leadlink.backend.exception.UserNotFoundException;
+import com.leadlink.backend.model.Contact;
+import com.leadlink.backend.model.Users;
+import com.leadlink.backend.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserService {
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
+
+    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userRepository = userRepository;
+    }
+
+
+    public Users createUser(Users user){
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    public List<Users> getAllUsers(){
+        return userRepository.findAll();
+    }
+
+    public Users getUserById(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(()-> new UserNotFoundException(id));
+    }
+
+    public Users updateUser(Long id, Users newUser){
+        return userRepository.findById(id)
+                .map(user ->{
+                    user.setFirstname(newUser.getFirstname());
+                    user.setLastname(newUser.getLastname());
+                    user.setEmail(newUser.getEmail());
+                    user.setUsername(newUser.getUsername());
+                    user.setPassword(newUser.getPassword());
+                    return userRepository.save(user);
+                }).orElseThrow(()-> new UserNotFoundException(id));
+    }
+
+    public void deleteUser(Long id){
+        if(!userRepository.existsById(id)){
+            throw new UserNotFoundException(id);
+        }
+        userRepository.deleteById(id);
+    }
+
+
+
 }

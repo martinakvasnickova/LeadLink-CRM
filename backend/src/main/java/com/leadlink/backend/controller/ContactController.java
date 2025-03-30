@@ -1,54 +1,45 @@
 package com.leadlink.backend.controller;
 
-import com.leadlink.backend.exception.ContactNotFoundException;
 import com.leadlink.backend.model.Contact;
-import com.leadlink.backend.repository.ContactRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.leadlink.backend.service.ContactService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
+@RequestMapping("/contact")
 public class ContactController {
 
-    @Autowired
-    private ContactRepository contactRepository;
+    private final ContactService contactService;
 
-    @PostMapping("/contact")
-    Contact newContact(@RequestBody Contact newContact){
-        return contactRepository.save(newContact);
+    public ContactController(ContactService contactService) {
+        this.contactService = contactService;
     }
 
-    @GetMapping("/contacts")
-    List<Contact> getAllContacts(){
-        return contactRepository.findAll();
+    @PostMapping
+    public Contact newContact(@RequestBody Contact newContact) {
+        return contactService.createContact(newContact);
     }
 
-    @GetMapping("/contact/{id}")
-    Contact getContactById(@PathVariable Long id){
-        return contactRepository.findById(id)
-                .orElseThrow(()->new ContactNotFoundException(id));
+    @GetMapping
+    public List<Contact> getAllContacts() {
+        return contactService.getAllContacts();
     }
 
-    @PutMapping("/contact/{id}")
-    Contact updateContact(@RequestBody Contact newContact, @PathVariable Long id){
-        return contactRepository.findById(id)
-                .map(contact -> {
-                    contact.setFirstname(newContact.getFirstname());
-                    contact.setLastname(newContact.getLastname());
-                    contact.setEmail(newContact.getEmail());
-                    return contactRepository.save(contact);
-                }).orElseThrow(()-> new ContactNotFoundException(id));
+    @GetMapping("/{id}")
+    public Contact getContactById(@PathVariable Long id) {
+        return contactService.getContactById(id);
     }
 
-    @DeleteMapping("/contact/{id}")
-    String deleteContact(@PathVariable Long id){
-        if(!contactRepository.existsById(id)){
-            throw new ContactNotFoundException(id);
-        }
-        contactRepository.deleteById(id);
-        return "Contact with id " + id + " has been deleted success.";
+    @PutMapping("/{id}")
+    public Contact updateContact(@RequestBody Contact newContact, @PathVariable Long id) {
+        return contactService.updateContact(id, newContact);
     }
 
+    @DeleteMapping("/{id}")
+    public String deleteContact(@PathVariable Long id) {
+        contactService.deleteContact(id);
+        return "Contact with id " + id + " has been deleted successfully.";
+    }
 }

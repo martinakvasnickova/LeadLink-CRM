@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import axiosInstance from '../../axiosConfig';
 
 export default function EditContact({ contact, refreshContacts }) {
   const [updatedContact, setUpdatedContact] = useState(contact);
@@ -14,7 +15,7 @@ export default function EditContact({ contact, refreshContacts }) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:8080/contact/${updatedContact.id}`, updatedContact);
+    await axiosInstance.put(`http://localhost:8080/contact/${updatedContact.id}`, updatedContact);
     refreshContacts();
   };
 

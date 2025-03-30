@@ -7,6 +7,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
 import Home from "./pages/public/Home";
 import Contacts from "./pages/private/Contacts";
 import Dashboard from "./pages/private/Dashboard";
+import Registration from "./pages/public/Registration";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />}/>
         <Route path="/contacts" element={<Contacts/>}/>
+        <Route path="/registration" element={<Registration/>}/>
        
       </Routes>
     </Router>

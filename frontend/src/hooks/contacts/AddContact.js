@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axiosInstance from '../../axiosConfig'
 
 export default function AddContact() {
 
@@ -20,7 +21,7 @@ export default function AddContact() {
 
     const onSubmit=async(e)=>{
         e.preventDefault();
-        await axios.post('http://localhost:8080/contact', contact);
+        await axiosInstance.post('http://localhost:8080/contact', contact);
         navigate('/contacts');
     }
 

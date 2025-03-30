@@ -8,6 +8,7 @@ import AddContact from '../../hooks/contacts/AddContact';
 import EditContact from '../../hooks/contacts/EditContact';
 
 import './css/Layout.css';
+import axiosInstance from '../../axiosConfig';
 
 export default function Contacts() {
   const [contacts, setContacts] = useState([]);
@@ -20,12 +21,12 @@ export default function Contacts() {
   }, []);
 
   const loadContacts = async () => {
-    const result = await axios.get('http://localhost:8080/contacts');
+    const result = await axiosInstance.get('http://localhost:8080/contact');
     setContacts(result.data);
   };
 
   const deleteContact=async(id)=>{
-    await axios.delete(`http://localhost:8080/contact/${id}`)
+    await axiosInstance.delete(`http://localhost:8080/contact/${id}`)
     loadContacts()
   }
 
