@@ -22,16 +22,15 @@ export default function AddContact() {
         e.preventDefault();
         await axios.post('http://localhost:8080/contact', contact);
         navigate('/contacts');
-
     }
 
   return (
-    <form class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" onSubmit={(e)=>onSubmit(e)}>
+    <form class="modal fade" id="addContactModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" onSubmit={(e)=>onSubmit(e)}>
     <div class="modal-dialog">
       <div class="modal-content">
         
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Přidat kontakt</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
