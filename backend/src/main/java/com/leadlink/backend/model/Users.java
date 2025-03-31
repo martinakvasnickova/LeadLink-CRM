@@ -1,8 +1,9 @@
 package com.leadlink.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Users {
@@ -15,6 +16,17 @@ public class Users {
     private String email;
     private String username;
     private String password;
+
+    private String passwordHash;
+
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
 
     public Long getId() {
         return id;

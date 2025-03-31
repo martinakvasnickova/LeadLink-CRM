@@ -42,4 +42,10 @@ public class ContactController {
         contactService.deleteContact(id);
         return "Contact with id " + id + " has been deleted successfully.";
     }
+
+    @GetMapping("/contact/user")
+    public List<Contact> getContactsForCurrentUser() {
+        return contactService.getContactsForCurrentUser();
+    }
+
 }

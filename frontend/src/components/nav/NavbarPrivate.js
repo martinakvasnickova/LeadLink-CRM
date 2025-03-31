@@ -1,8 +1,20 @@
 import React from 'react';
 
 import './css/NavbarPrivate.css';
+import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavbarPrivate() {
+
+  const {logout} = useAuth();
+
+  const navigate = useNavigate();
+
+  const logoutUser = () =>{
+    logout()
+    navigate("/login")
+  }
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
   <div className="container-fluid">
@@ -39,6 +51,7 @@ export default function NavbarPrivate() {
         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button className="btn btn-outline-success" type="submit">Search</button>
       </form>
+      <button className='btn btn-otline-dark' onClick={logoutUser}>Logout</button>
     </div>
   </div>
 </nav>

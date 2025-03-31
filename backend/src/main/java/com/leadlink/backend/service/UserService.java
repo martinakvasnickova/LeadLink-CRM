@@ -5,6 +5,8 @@ import com.leadlink.backend.exception.UserNotFoundException;
 import com.leadlink.backend.model.Contact;
 import com.leadlink.backend.model.Users;
 import com.leadlink.backend.repository.UserRepository;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +55,19 @@ public class UserService {
             throw new UserNotFoundException(id);
         }
         userRepository.deleteById(id);
+    }
+
+    public boolean authenticate(String username, String password){
+        Users user = userRepository.findByUsername(username);
+
+        if(!user.getUsername().equals(username)){
+            throw new UsernameNotFoundException("User not found in the database.");
+        }
+
+        if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
+            throw new BadCredentialsException("The password is incorrect");
+        }
+        return true;
     }
 
 

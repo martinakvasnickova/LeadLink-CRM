@@ -8,18 +8,30 @@ import Home from "./pages/public/Home";
 import Contacts from "./pages/private/Contacts";
 import Dashboard from "./pages/private/Dashboard";
 import Registration from "./pages/public/Registration";
+import RegistrationSuccessful from "./pages/public/RegistrationSuccessful";
+import Login from "./pages/public/Login";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />}/>
-        <Route path="/contacts" element={<Contacts/>}/>
-        <Route path="/registration" element={<Registration/>}/>
-       
-      </Routes>
-    </Router>
+
+    <AuthProvider>
+      <Router>
+        <Routes>
+
+          <Route path="/" element={<Home />} />
+          <Route path="/registration" element={<Registration/>}/>
+          <Route path="/registration-successful" element={<RegistrationSuccessful/>}/>
+          <Route path="/login" element={<Login/>}/>
+
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
+          <Route path="/contacts" element={<ProtectedRoute><Contacts/></ProtectedRoute>}/>
+          
+        
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

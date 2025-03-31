@@ -1,8 +1,6 @@
 package com.leadlink.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Contact {
@@ -13,6 +11,18 @@ public class Contact {
     private String firstname;
     private String lastname;
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;

@@ -2,7 +2,12 @@ package com.leadlink.backend.service;
 
 import com.leadlink.backend.exception.ContactNotFoundException;
 import com.leadlink.backend.model.Contact;
+import com.leadlink.backend.model.Users;
 import com.leadlink.backend.repository.ContactRepository;
+import com.leadlink.backend.repository.UserRepository;
+import com.leadlink.backend.security.UserPrincipal;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,4 +50,13 @@ public class ContactService {
         }
         contactRepository.deleteById(id);
     }
+
+    public List<Contact> getContactsForCurrentUser() {
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userPrincipal.getUsername();
+        return contactRepository.findByUserUsername(username);
+    }
+
+
+
 }
