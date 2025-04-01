@@ -2,12 +2,13 @@ package com.leadlink.backend.service;
 
 
 import com.leadlink.backend.exception.CaseNotFoundException;
-import com.leadlink.backend.model.Case;
+import com.leadlink.backend.model.Cases;
 import com.leadlink.backend.model.Users;
 import com.leadlink.backend.repository.CaseRepository;
 import com.leadlink.backend.repository.UserRepository;
 import com.leadlink.backend.security.UserPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class CaseService {
         this.userRepository = userRepository;
     }
 
-    public Case createCase(Case caseEntity){
+    public Cases createCase(Cases caseEntity){
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userPrincipal.getUsername();
 
@@ -35,22 +36,35 @@ public class CaseService {
         return caseRepository.save(caseEntity);
     }
 
-    public List<Case> getAllCases(){
+    public List<Cases> getAllCases(){
         return caseRepository.findAll();
     }
 
-    public Case getCaseById(Long id){
+    public Cases getCaseById(Long id){
         return caseRepository.findById(id)
                 .orElseThrow(()-> new CaseNotFoundException(id));
     }
 
-    public Case updateCase(Long id, Case newCase){
+    public Cases updateCase(Long id, Cases newCase){
         return caseRepository.findById(id)
                 .map(caseEntity ->{
                     caseEntity.setName(newCase.getName());
                     caseEntity.setPrice(newCase.getPrice());
                     return caseRepository.save(caseEntity);
                 }).orElseThrow(()->new CaseNotFoundException(id));
+    }
+
+    public void deleteCase(Long id){
+        if(!caseRepository.existsById(id)){
+            throw new CaseNotFoundException(id);
+        }
+        caseRepository.deleteById(id);
+    }
+
+    public List<Cases>getCasesForCurrentUser(){
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userPrincipal.getUsername();
+        return caseRepository.findByUserUsername(username);
     }
 
 }
