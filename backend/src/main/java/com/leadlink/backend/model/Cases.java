@@ -1,7 +1,10 @@
 package com.leadlink.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 @Entity
@@ -16,8 +19,19 @@ public class Cases{
     @JoinColumn(name = "user_id")
     private Users user;
 
+    @OneToMany(mappedBy = "cases", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<ContactCase> contactCases;
+
     public Cases() {}
 
+    public List<ContactCase> getContactCases() {
+        return contactCases;
+    }
+
+    public void setContactCases(List<ContactCase> contactCases) {
+        this.contactCases = contactCases;
+    }
 
     public Cases(Long id, String name, float price, Users user) {
         this.id = id;

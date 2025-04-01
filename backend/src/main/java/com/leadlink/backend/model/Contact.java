@@ -1,6 +1,9 @@
 package com.leadlink.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Contact {
@@ -15,6 +18,18 @@ public class Contact {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
+
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<ContactCase> contactCases;
+
+    public List<ContactCase> getContactCases() {
+        return contactCases;
+    }
+
+    public void setContactCases(List<ContactCase> contactCases) {
+        this.contactCases = contactCases;
+    }
 
     public Users getUser() {
         return user;
