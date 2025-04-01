@@ -6,7 +6,6 @@ import com.leadlink.backend.model.Users;
 import com.leadlink.backend.repository.ContactRepository;
 import com.leadlink.backend.repository.UserRepository;
 import com.leadlink.backend.security.UserPrincipal;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +15,22 @@ import java.util.List;
 public class ContactService {
 
     private final ContactRepository contactRepository;
+    private final UserRepository userRepository;
 
-    public ContactService(ContactRepository contactRepository) {
+    public ContactService(ContactRepository contactRepository, UserRepository userRepository) {
         this.contactRepository = contactRepository;
+        this.userRepository = userRepository;
     }
 
     public Contact createContact(Contact contact) {
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userPrincipal.getUsername();
+
+        Users user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+        contact.setUser(user);
         return contactRepository.save(contact);
     }
 
@@ -56,7 +65,4 @@ public class ContactService {
         String username = userPrincipal.getUsername();
         return contactRepository.findByUserUsername(username);
     }
-
-
-
 }

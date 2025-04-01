@@ -43,7 +43,7 @@ public class ContactController {
         return "Contact with id " + id + " has been deleted successfully.";
     }
 
-    @GetMapping("/contact/user")
+    @GetMapping("/user")
     public List<Contact> getContactsForCurrentUser() {
         return contactService.getContactsForCurrentUser();
     }

@@ -21,7 +21,7 @@ export default function Contacts() {
   }, []);
 
   const loadContacts = async () => {
-    const result = await axiosInstance.get('http://localhost:8080/contact');
+    const result = await axiosInstance.get('http://localhost:8080/contact/user');
     setContacts(result.data);
   };
 
