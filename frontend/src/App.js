@@ -7,6 +7,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
 import Home from "./pages/public/Home";
 import Contacts from "./pages/private/Contacts";
 import Dashboard from "./pages/private/Dashboard";
+import Cases from "./pages/private/Cases";
 import Registration from "./pages/public/Registration";
 import RegistrationSuccessful from "./pages/public/RegistrationSuccessful";
 import Login from "./pages/public/Login";
@@ -27,6 +28,7 @@ function App() {
 
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
           <Route path="/contacts" element={<ProtectedRoute><Contacts/></ProtectedRoute>}/>
+          <Route path="/cases" element={<ProtectedRoute><Cases/></ProtectedRoute>}/>
           
         
         </Routes>

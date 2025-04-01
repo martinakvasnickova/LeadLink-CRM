@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@NoArgsConstructor
 public class Cases{
     @Id
     @GeneratedValue
