@@ -1,11 +1,13 @@
 package com.leadlink.backend.controller;
 
+import com.leadlink.backend.dto.CaseDTO;
 import com.leadlink.backend.model.Cases;
 import com.leadlink.backend.model.Contact;
 import com.leadlink.backend.service.CaseService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -23,8 +25,24 @@ public class CaseController {
     }
 
     @GetMapping
-    public List<Cases> getAllCases(){
-        return caseService.getAllCases();
+    public List<CaseDTO> getAllCases() {
+        List<Cases> businessCases = caseService.getAllCases();
+
+        return businessCases.stream()
+                .map(businessCase -> {
+                    String contactName = null;
+                    if (!businessCase.getContactCases().isEmpty()) {
+                        Contact contact = businessCase.getContactCases().get(0).getContact();
+                        contactName = contact.getFirstname() + " " + contact.getLastname();
+                    }
+                    return new CaseDTO(
+                            businessCase.getId(),
+                            businessCase.getName(),
+                            businessCase.getPrice(),
+                            contactName
+                    );
+                })
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
@@ -40,7 +58,7 @@ public class CaseController {
     @DeleteMapping("/{id}")
     public String deleteCase(@PathVariable Long id){
         caseService.deleteCase(id);
-        return "Case with id " + id + " has been deleted successfuly.";
+        return "Case with id " + id + " has been deleted successfully.";
     }
 
     @GetMapping("/case")
