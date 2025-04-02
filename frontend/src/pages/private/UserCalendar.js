@@ -10,6 +10,7 @@ import NavbarPrivate from '../../components/nav/NavbarPrivate';
 export default function UserCalendar() {
   const localizer = momentLocalizer(moment);
   const [events, setEvents] = useState([]);
+  const [view, setView] = useState(Views.MONTH); 
 
   useEffect(() => {
     setEvents([
@@ -45,9 +46,10 @@ export default function UserCalendar() {
           endAccessor="end"
           style={{ height: 500 }}
           onSelectEvent={handleSelectEvent}
-          views={[Views.MONTH, Views.WEEK, Views.DAY, Views.AGENDA]} // Povolená zobrazení
-          defaultView={Views.MONTH} // Výchozí zobrazení
-          toolbar={true} // ✅ Zajištění zobrazení toolbaru    
+          views={Object.values(Views)} 
+          defaultView={view} 
+          onView={(newView) => setView(newView)} 
+          toolbar={true}   
         />
       </main>
     </div>
