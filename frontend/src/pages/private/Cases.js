@@ -20,12 +20,12 @@ export default function Cases() {
   }, []);
 
   const loadBusinessCases = async () => {
-    const result = await axiosInstance.get('http://localhost:8080/case');
+    const result = await axiosInstance.get('http://localhost:8080/case/user');
     setBusinessCases(result.data);
   };
 
   const loadContacts = async () => {
-    const result = await axiosInstance.get('http://localhost:8080/contact'); // endpoint pro kontakty
+    const result = await axiosInstance.get('http://localhost:8080/contact'); 
     setContacts(result.data);
   };
 

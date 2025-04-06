@@ -1,25 +1,25 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    headers:{
-        'Content-Type':'application/json'
-    }
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    withCredentials: true, 
 });
 
 axiosInstance.interceptors.request.use(
-    (config)=>{
-        const username = process.env.REACT_APP_API_USERNAME;
-        const password = process.env.REACT_APP_API_PASSWORD;
-        if(username && password){
-            config.auth = {
-                username: username,
-                password: password
-            };
+    (config) => {
+        const username = localStorage.getItem('username');
+        const password = localStorage.getItem('password');
+        
+        if (username && password) {
+            config.headers['Authorization'] = 'Basic ' + btoa(username + ':' + password);
         }
-        return config
+
+        return config;
     },
     (error) => {
-        return Promise.reject(error)
+        return Promise.reject(error);
     }
 );
 

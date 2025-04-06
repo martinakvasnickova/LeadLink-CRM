@@ -61,7 +61,7 @@ public class CaseController {
         return "Case with id " + id + " has been deleted successfully.";
     }
 
-    @GetMapping("/case")
+    @GetMapping("/user")
     public List<Cases> getCasesForCurrentUser(){
         return caseService.getCasesForCurrentUser();
     }
