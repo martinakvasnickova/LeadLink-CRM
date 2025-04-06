@@ -40,16 +40,16 @@ export default function UserCalendar() {
       <main>
         <h2>Kalendář</h2>
         <BigCalendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500 }}
-          onSelectEvent={handleSelectEvent}
-          views={Object.values(Views)} 
-          defaultView={view} 
-          onView={(newView) => setView(newView)} 
-          toolbar={true}   
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500 }}
+            onSelectEvent={handleSelectEvent}
+            views={Object.values(Views)}
+            view={view} 
+            onView={(newView) => setView(newView)}
+            toolbar={true}
         />
       </main>
     </div>
