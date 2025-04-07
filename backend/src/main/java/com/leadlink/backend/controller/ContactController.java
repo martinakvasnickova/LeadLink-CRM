@@ -1,10 +1,13 @@
 package com.leadlink.backend.controller;
 
+import com.leadlink.backend.dto.ContactDTO;
+import com.leadlink.backend.model.Cases;
 import com.leadlink.backend.model.Contact;
 import com.leadlink.backend.service.ContactService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -22,9 +25,27 @@ public class ContactController {
         return contactService.createContact(newContact);
     }
 
+
     @GetMapping
-    public List<Contact> getAllContacts() {
-        return contactService.getAllContacts();
+    public List<ContactDTO> getAllContacts(){
+        List<Contact> contacts = contactService.getAllContacts();
+
+        return contacts.stream()
+                .map(contact ->{
+                    String caseName = null;
+                    if(!contact.getContactCases().isEmpty()){
+                        Cases cases = contact.getContactCases().get(0).getCases();
+                        caseName = cases.getName();
+                    }
+                    return new ContactDTO(
+                            contact.getId(),
+                            contact.getFirstname(),
+                            contact.getLastname(),
+                            contact.getEmail(),
+                            caseName
+                    );
+                })
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
