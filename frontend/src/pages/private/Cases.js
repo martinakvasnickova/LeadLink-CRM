@@ -11,12 +11,15 @@ export default function Cases() {
   const [contacts, setContacts] = useState([]);
   const [selectedBusinessCase, setSelectedBusinessCase] = useState(null);
   const [selectedContact, setSelectedContact] = useState(null);
+  const [contactCases, setContactCases] = useState([]);
+
 
   const { id } = useParams();
 
   useEffect(() => {
     loadBusinessCases();
     loadContacts(); 
+    loadContactCases();
   }, []);
 
   const loadBusinessCases = async () => {
@@ -40,6 +43,16 @@ export default function Cases() {
       cases: { id: caseId }
     });
     loadBusinessCases(); 
+  };
+
+  const loadContactCases = async () => {
+    const result = await axiosInstance.get('http://localhost:8080/contact-case');
+    setContactCases(result.data);
+  };
+
+  const getContactForCase = (caseId) => {
+    const relation = contactCases.find(cc => cc.cases.id === caseId);
+    return relation ? relation.contact : null;
   };
 
   return (
@@ -74,9 +87,11 @@ export default function Cases() {
                 <td>{businessCase.name}</td>
                 <td>{businessCase.price}</td>
                 <td>
-                  {/* Zobrazí se jméno připojeného kontaktu */}
-                  {businessCase.contactName ? businessCase.contactName : "Není připojený kontakt"}
-                </td>
+                    {(() => {
+                      const contact = getContactForCase(businessCase.id);
+                      return contact ? `${contact.firstname} ${contact.lastname}` : "Není připojený kontakt";
+                    })()}
+                  </td>
                 <td>
                   <button
                     className="btn btn-outline-dark mx-2"

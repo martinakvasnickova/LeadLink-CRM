@@ -8,12 +8,16 @@ import NavbarPrivate from '../../components/nav/NavbarPrivate';
 
 import './css/Layout.css';
 import axiosInstance from '../../axiosConfig';
+import AddEvent from "../../hooks/events/AddEvent";
+import EditEvent from "../../hooks/events/EditEvent";
 
 export default function UserCalendar() {
   const localizer = momentLocalizer(moment);
   const [events, setEvents] = useState([]);
   const [view, setView] = useState(Views.MONTH);
   const [date, setDate] = useState(new Date());
+  const [selectedEvent, setSelectedEvent] = useState(null); // Uloží vybranou událost pro úpravy
+  const [showModal, setShowModal] = useState(false); // Stav pro zobrazení modálního okna
 
   useEffect(() => {
     loadEvents();
@@ -38,7 +42,8 @@ export default function UserCalendar() {
   };
 
   const handleSelectEvent = (event) => {
-    alert(`🗓️ Detail události: ${event.title}\n\nZačátek: ${event.start}\nKonec: ${event.end}`);
+    setSelectedEvent(event); // Nastaví vybranou událost
+    setShowModal(true); // Otevře modální okno pro editaci
   };
 
   return (
@@ -46,6 +51,10 @@ export default function UserCalendar() {
       <Aside />
       <NavbarPrivate />
       <main className="calendar-main">
+        <button type="button" className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addEventModal">
+          Přidat Událost
+        </button>
+        <AddEvent />
         <h2>Kalendář</h2>
         <BigCalendar
           localizer={localizer}
@@ -56,12 +65,17 @@ export default function UserCalendar() {
           onSelectEvent={handleSelectEvent}
           views={Object.values(Views)}
           view={view}
-          date={date} 
+          date={date}
           onNavigate={setDate}
           onView={(newView) => setView(newView)}
           toolbar
         />
       </main>
+
+      {/* Modal pro editaci události */}
+      {showModal && selectedEvent && (
+        <EditEvent event={selectedEvent} setShowModal={setShowModal} refreshEvent={loadEvents} />
+      )}
     </div>
   );
 }
