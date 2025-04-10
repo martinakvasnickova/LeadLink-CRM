@@ -41,4 +41,5 @@ public class ContactEventController {
         contactEventService.deleteContactEvent(id);
     }
 
+
 }

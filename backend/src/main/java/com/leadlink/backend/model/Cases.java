@@ -23,11 +23,6 @@ public class Cases{
     @JsonIgnore
     private List<ContactCase> contactCases;
 
-    //Here
-    @OneToMany(mappedBy = "cases", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<ContactEvent> contactEvents;
-
     public Cases() {}
 
     public List<ContactCase> getContactCases() {
@@ -45,13 +40,7 @@ public class Cases{
         this.user = user;
     }
 
-    public List<ContactEvent> getContactEvents() {
-        return contactEvents;
-    }
 
-    public void setContactEvents(List<ContactEvent> contactEvents) {
-        this.contactEvents = contactEvents;
-    }
 
     public Long getId() {
         return id;
