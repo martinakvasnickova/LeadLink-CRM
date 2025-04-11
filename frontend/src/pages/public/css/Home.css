@@ -1,0 +1,71 @@
+.home{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.home-inner{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.viewport{
+    height: 100vh;
+    padding: 20px 30px;
+}
+
+.one{
+    height: 50vh;
+    background-image: url('../../../assets/images/SL_060521_43530_17.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    border-radius: 0 0 25px 25px;
+}
+
+.two{
+    height: 50vh;
+}
+
+.navbar-brand{
+    color: #635ee2;
+}
+
+
+.viewport1{
+    height: 40vh;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+.viewport1 h1{
+    font-size: 56px;
+    font-family: 'ClashDisplay-Regular';
+    src: url('../../../fonts/clash/ClashDisplay-Regular.woff2'); 
+    text-align: center;
+}
+
+.viewport1 button{
+    margin: 10px 50px;
+    border-radius: 12px;
+}
+
+.ll-primary-purple{
+    background-color: #635ee2;
+    color: white;
+    border: none;
+}
+
+.ll-primary-purple-outline{
+    border: 1px solid #635ee2;
+}
+
+
