@@ -6,41 +6,38 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
-
-import java.util.Map;
 import java.util.HashMap;
-
+import java.util.Map;
 
 @Service
 public class JwtService {
 
-    // Použití bezpečného generování klíče
-    private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final SecretKey secretKey;
 
-    // Expirace tokenu (třeba 1 hodina)
     private final long JWT_EXPIRATION_MS = 3600000; // 1 hodina
 
-    // Metoda pro generování JWT tokenu
-    // Metoda pro generování JWT tokenu
-    public String generateToken(UserPrincipal userPrincipal) {
+    public JwtService(@Value("${jwt.secret}") String jwtSecret) {
+        this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+    }
 
+    public String generateToken(UserPrincipal userPrincipal) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userPrincipal.getAuthorities().stream()
-                .findFirst().get().getAuthority()); // např. "ROLE_USER"
+                .findFirst().get().getAuthority());
 
         return Jwts.builder()
-                .setClaims(claims)  // Přidej claims do tokenu
+                .setClaims(claims)
                 .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_MS))
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(secretKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-
-    // Metoda pro extrakci uživatelského jména z tokenu
     public String extractUsername(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
@@ -50,7 +47,6 @@ public class JwtService {
                 .getSubject();
     }
 
-    // Metoda pro kontrolu, zda je token platný
     public boolean isTokenValid(String token) {
         try {
             String username = extractUsername(token);
@@ -60,12 +56,10 @@ public class JwtService {
         }
     }
 
-    // Metoda pro kontrolu expirace tokenu
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    // Metoda pro extrakci data expirace z tokenu
     private Date extractExpiration(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
@@ -74,7 +68,4 @@ public class JwtService {
                 .getBody()
                 .getExpiration();
     }
-
-
-
 }

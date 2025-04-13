@@ -16,31 +16,35 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
-
+  
     try {
       const response = await axiosInstance.post('http://localhost:8080/user/login', {
         username,
         password
       });
-
+  
       const token = response.data.token;
-
+  
       if (token) {
         dispatch(loginSuccess(token));
-
+  
+        // Uložení tokenu a role do localStorage
+        localStorage.setItem('token', token);
+  
         // Dekódujeme token a uložíme roli do localStorage
         const decoded = jwtDecode(token);
         localStorage.setItem('role', decoded.role);
-
+  
         navigate('/dashboard');
       } else {
         setError('Nepodařilo se získat token.');
       }
-
+  
     } catch (error) {
       setError('Přihlášení selhalo.');
     }
   };
+  
 
   return (
     <div className='registration'>

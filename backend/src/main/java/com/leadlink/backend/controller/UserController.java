@@ -4,7 +4,6 @@ import com.leadlink.backend.model.JwtResponse;
 import com.leadlink.backend.model.LoginRequest;
 import com.leadlink.backend.model.Users;
 import com.leadlink.backend.security.JwtService;
-import com.leadlink.backend.security.JwtUtil;
 import com.leadlink.backend.security.UserPrincipal;
 import com.leadlink.backend.service.UserService;
 import jakarta.servlet.http.HttpSession;
