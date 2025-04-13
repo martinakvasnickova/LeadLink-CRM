@@ -1,7 +1,11 @@
 package com.leadlink.backend.controller;
 
+import com.leadlink.backend.model.JwtResponse;
 import com.leadlink.backend.model.LoginRequest;
 import com.leadlink.backend.model.Users;
+import com.leadlink.backend.security.JwtService;
+import com.leadlink.backend.security.JwtUtil;
+import com.leadlink.backend.security.UserPrincipal;
 import com.leadlink.backend.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,30 +21,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService, JwtService jwtService){
         this.userService = userService;
-    }
-
-    @GetMapping
-    public List<Users> getAllUsers(){
-        return userService.getAllUsers();
-    }
-
-    @GetMapping("/{id}")
-    public Users getUserById(@PathVariable Long id){
-        return userService.getUserById(id);
-    }
-
-    @PutMapping("/{id}")
-    public Users updateUser(@RequestBody Users newUser, @PathVariable Long id){
-        return userService.updateUser(id, newUser);
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id){
-        userService.deleteUser(id);
-        return "User with id + " + id + " has been deleted successfully";
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/register")
@@ -49,24 +34,30 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest, HttpSession session){
-        try{
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
             boolean isAuthenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
 
-            if(isAuthenticated){
-                session.setAttribute("user", loginRequest.getUsername());
-                return ResponseEntity.ok("Login was successful.");
-            }else{
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
+            if (isAuthenticated) {
+                Users user = userService.findByUsername(loginRequest.getUsername());
+                UserPrincipal userDetails = new UserPrincipal(user); // <- konverze na UserDetails
+
+                // Debug log
+                System.out.println("User authenticated: " + userDetails.getUsername());
+
+                String token = jwtService.generateToken(userDetails); // generování tokenu
+                return ResponseEntity.ok(new JwtResponse(token));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
             }
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unknown error occurred.");
+        } catch (Exception e) {
+            // Log error
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
         }
-
     }
-
-
 
 }
 

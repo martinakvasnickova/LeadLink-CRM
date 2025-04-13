@@ -4,23 +4,18 @@ const axiosInstance = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true, 
+    withCredentials: false, // JWT nevyužívá cookies
 });
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const username = localStorage.getItem('username');
-        const password = localStorage.getItem('password');
-        
-        if (username && password) {
-            config.headers['Authorization'] = 'Basic ' + btoa(username + ':' + password);
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers['Authorization'] = 'Bearer ' + token;
         }
-
         return config;
     },
-    (error) => {
-        return Promise.reject(error);
-    }
+    (error) => Promise.reject(error)
 );
 
 export default axiosInstance;

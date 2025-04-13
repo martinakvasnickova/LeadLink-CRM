@@ -12,17 +12,18 @@ public class MyUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public MyUserDetailsService(UserRepository userRepository){
+    public MyUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = userRepository.findByUsername(username);
 
-        if(user == null){
-            throw new UsernameNotFoundException("This user does not exist in the database.");
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
-        return new UserPrincipal(user);
+        return new UserPrincipal(user);  // Vrátíme UserPrincipal s instancí Users
     }
 }

@@ -2,47 +2,43 @@ import React, { useState } from 'react';
 import './css/Registration.css';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../axiosConfig'; 
-import { useAuth } from '../../contexts/AuthContext';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../slices/authSlice';
+import { jwtDecode } from 'jwt-decode'; // Opravený import
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
-
-  const handleChange = (e) => {
-    if (e.target.name === 'username') {
-      setUsername(e.target.value);
-    } else if (e.target.name === 'password') {
-      setPassword(e.target.value);
-    }
-  };
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
 
-    const loginData = { username, password };
-
     try {
-      const response = await axiosInstance.post(
-        'http://localhost:8080/user/login',
-        loginData
-      );
+      const response = await axiosInstance.post('http://localhost:8080/user/login', {
+        username,
+        password
+      });
 
-      if (response.status === 200) {
-        localStorage.setItem('username', username);
-        localStorage.setItem('password', password);
+      const token = response.data.token;
 
-        login();
+      if (token) {
+        dispatch(loginSuccess(token));
+
+        // Dekódujeme token a uložíme roli do localStorage
+        const decoded = jwtDecode(token);
+        localStorage.setItem('role', decoded.role);
+
         navigate('/dashboard');
       } else {
-        const errorData = response.data;
-        setError(errorData.message || 'Login failed. Please retry.');
+        setError('Nepodařilo se získat token.');
       }
+
     } catch (error) {
-      setError('An error occurred. Please retry.');
+      setError('Přihlášení selhalo.');
     }
   };
 
@@ -52,32 +48,30 @@ export default function Login() {
         <h2>Přihlášení</h2>
 
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
+          <label htmlFor="username" className="form-label">Uživatelské jméno</label>
           <input
             type="text"
             name="username"
             value={username}
-            onChange={handleChange}
+            onChange={(e) => setUsername(e.target.value)}
             className="form-control"
-            id="email"
-            aria-describedby="emailHelp"
+            id="username"
           />
-          <div id="emailHelp" className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
 
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">Heslo</label>
+          <label htmlFor="password" className="form-label">Heslo</label>
           <input
             type="password"
             name="password"
             value={password}
-            onChange={handleChange}
+            onChange={(e) => setPassword(e.target.value)}
             className="form-control"
             id="password"
           />
         </div>
+
+        {error && <div className="text-danger mb-2">{error}</div>}
 
         <button type="submit" className="btn btn-primary">Přihlásit se</button>
       </form>
