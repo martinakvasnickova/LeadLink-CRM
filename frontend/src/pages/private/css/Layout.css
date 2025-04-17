@@ -5,8 +5,20 @@ main{
     height: calc(100vh - 55px);
     margin-left: 15vw;
     padding: 15px
-   
-    
+}
+
+.secondary-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 10px 0 20px 0;
+}
+
+.custom-table{
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #BEBEBE;
+    box-shadow: 1px 1px 2px lightgray;
 }
 
 @media (max-width: 991px) {

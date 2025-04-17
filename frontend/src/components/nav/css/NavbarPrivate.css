@@ -1,12 +1,25 @@
 .custom-navbar {
-    width: 85vw;
+    width: 84vw;
     margin-left: 15vw;
-    box-shadow: 1px 1px 12px gray;
+    margin-right: 1vw;
+    
+    box-shadow: 1px 1px 4px gray;
+    border-radius: 12px;
+    background-color: white;
   }
+
+.custom-search{
+    border-radius: 12px;
+}
 
   @media (max-width: 991px) {
     .custom-navbar{
         margin: 0;
         width: 100vw;
+        border-radius: 0px 0px 12px 12px;
     }
+}
+
+.icon{
+  margin-right: 10px;
 }

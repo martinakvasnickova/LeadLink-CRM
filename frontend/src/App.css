@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: 'ClashDisplay-Regular';
+  src: url('./fonts/clash/ClashDisplay-Regular.woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: 'WorkSans-Regular';
+  src: url('./fonts/work/WorkSans-Regular.woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+:root {
+  --font-special: 'ClashDisplay-Regular';
+  --font-main: 'WorkSans-Regular';
+  --color-primary-purple: #635ee2;
+  --color-primary-mint: #D3F5CF;
+  --color-primary-blue: #A8DBFA;
+  --color-background-gray: #F5F6FC;
+  --color-secondary-text-gray: #BEBEBE;
+  --color-bg: #f9f9f9;
+  --radius: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.content{
+  background-color: var(--color-background-gray);
+  padding-top: 1vw;
 }
 
-.App-link {
-  color: #61dafb;
+h1,
+h2,
+h3,
+h4{
+  font-family: var(--font-special);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h4{
+  color: var(--color-primary-purple) !important;
+}
+
+p{
+  font-family: var(--font-main);
+}
+
+
+label{
+  font-size: 12px;
+  font-weight: lighter;
+  margin-top: 25px;
+}
+
+button{
+  border-radius: 12px !important;
+}
+
+.custom-button-primary-outline-blue{
+  border: 1px solid var(--color-primary-blue) !important;
+  font-family: var(--font-main) !important;
+}
+
+.custom-button-primary-filled-purple{
+  background-color: var(--color-primary-purple) !important;
+  color: white !important;
+  border: none !important;
+  font-family: var(--font-main) !important;
+}
+
+.custom-button-primary-filled-mint{
+  background-color: var(--color-primary-mint) !important;
+  color: black !important;
+  border: 1px solid var(--color-secondary-text-gray) !important;
+  font-family: var(--font-main) !important;
 }

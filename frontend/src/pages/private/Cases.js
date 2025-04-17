@@ -6,6 +6,9 @@ import axiosInstance from '../../axiosConfig';
 import AddCase from '../../hooks/cases/AddCase';
 import EditCase from '../../hooks/cases/EditCase';
 
+import '../../App.css';
+import './css/Layout.css';
+
 export default function Cases() {
   const [businessCases, setBusinessCases] = useState([]);
   const [contacts, setContacts] = useState([]);
@@ -56,20 +59,23 @@ export default function Cases() {
   };
 
   return (
-    <div>
+    <div className='content'>
       <Aside />
       <NavbarPrivate />
 
       <main>
-        <h2>Případy</h2>
 
-        <button type="button" className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addCaseModal">
-          Přidat Případ
-        </button>
+        <div className='secondary-nav'>
+          <h3>Případy</h3>
+
+          <button type="button" className="btn custom-button-primary-filled-mint" data-bs-toggle="modal" data-bs-target="#addCaseModal">
+            Přidat Případ
+          </button>
+        </div>
 
         <AddCase />
 
-        <table className="table table-striped table-hover">
+        <table className="table table-striped table-hover custom-table">
           <thead>
             <tr>
               <th scope="col">#</th>

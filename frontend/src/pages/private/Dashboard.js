@@ -3,6 +3,7 @@ import Aside from '../../components/nav/Aside'
 import NavbarPrivate from '../../components/nav/NavbarPrivate'
 
 import './css/Layout.css'
+import '../../App.css'
 
 export default function Dashboard() {
   return (
@@ -10,8 +11,8 @@ export default function Dashboard() {
       <Aside/>
       <NavbarPrivate/>
       <main>
-        <h1>Dashboard</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <h3>Nástěnka</h3>
+        <p>Vítejtě zpět</p>
       </main>
     </div>
   )
