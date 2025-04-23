@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import Aside from '../../components/nav/Aside';
 import NavbarPrivate from '../../components/nav/NavbarPrivate';
 
+import '../../App.css';
 import './css/Layout.css';
 import axiosInstance from '../../axiosConfig';
 import AddEvent from "../../hooks/events/AddEvent";
@@ -16,8 +17,8 @@ export default function UserCalendar() {
   const [events, setEvents] = useState([]);
   const [view, setView] = useState(Views.MONTH);
   const [date, setDate] = useState(new Date());
-  const [selectedEvent, setSelectedEvent] = useState(null); // Uloží vybranou událost pro úpravy
-  const [showModal, setShowModal] = useState(false); // Stav pro zobrazení modálního okna
+  const [selectedEvent, setSelectedEvent] = useState(null); 
+  const [showModal, setShowModal] = useState(false); 
 
   useEffect(() => {
     loadEvents();
@@ -42,20 +43,23 @@ export default function UserCalendar() {
   };
 
   const handleSelectEvent = (event) => {
-    setSelectedEvent(event); // Nastaví vybranou událost
-    setShowModal(true); // Otevře modální okno pro editaci
+    setSelectedEvent(event); 
+    setShowModal(true); 
   };
 
   return (
-    <div className="calendar-layout">
+    <div className="content calendar-layout">
       <Aside />
       <NavbarPrivate />
       <main className="calendar-main">
-        <button type="button" className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addEventModal">
+      <div className='secondary-nav'>
+        <h3>Kalendář</h3>
+        <button type="button" className="btn custom-button-primary-filled-mint" data-bs-toggle="modal" data-bs-target="#addEventModal">
           Přidat Událost
         </button>
+      </div>
         <AddEvent />
-        <h2>Kalendář</h2>
+        
         <BigCalendar
           localizer={localizer}
           events={events}

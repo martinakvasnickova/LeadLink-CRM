@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import '../../App.css'
 import './css/Registration.css';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../axiosConfig'; 
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../slices/authSlice';
-import { jwtDecode } from 'jwt-decode'; // Opravený import
+import { jwtDecode } from 'jwt-decode'; 
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -28,10 +29,8 @@ export default function Login() {
       if (token) {
         dispatch(loginSuccess(token));
   
-        // Uložení tokenu a role do localStorage
         localStorage.setItem('token', token);
   
-        // Dekódujeme token a uložíme roli do localStorage
         const decoded = jwtDecode(token);
         localStorage.setItem('role', decoded.role);
   
@@ -52,32 +51,34 @@ export default function Login() {
         <h2>Přihlášení</h2>
 
         <div className="mb-3">
-          <label htmlFor="username" className="form-label">Uživatelské jméno</label>
+          <label htmlFor="username" className="form-label">Email*</label>
           <input
             type="text"
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="form-control"
+            className="form-control custom-placeholder"
             id="username"
+            placeholder='john.doe@example.com'
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="password" className="form-label">Heslo</label>
+          <label htmlFor="password" className="form-label">Heslo*</label>
           <input
             type="password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="form-control"
+            className="form-control custom-placeholder"
             id="password"
+            placeholder='*****'
           />
         </div>
 
         {error && <div className="text-danger mb-2">{error}</div>}
 
-        <button type="submit" className="btn btn-primary">Přihlásit se</button>
+        <button type="submit" className="btn custom-button-primary-filled-purple">Přihlásit se</button>
       </form>
     </div>
   );

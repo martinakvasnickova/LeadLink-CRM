@@ -7,6 +7,7 @@ import NavbarPrivate from '../../components/nav/NavbarPrivate';
 import AddContact from '../../hooks/contacts/AddContact';
 import EditContact from '../../hooks/contacts/EditContact';
 
+import '../../App.css';
 import './css/Layout.css';
 import axiosInstance from '../../axiosConfig';
 
@@ -31,16 +32,19 @@ export default function Contacts() {
   }
 
   return (
-    <div>
+    <div className='content'>
       <Aside />
       <NavbarPrivate />
       <main>
-        <h2>Adresář</h2>
 
-        <button type="button" className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addContactModal">
+      <div className='secondary-nav'>
+        <h3>Adresář</h3>
+
+        <button type="button" className="btn custom-button-primary-filled-mint" data-bs-toggle="modal" data-bs-target="#addContactModal">
           Přidat Kontakt
         </button>
         <AddContact />
+      </div>
 
         <table className="table table-striped table-hover">
           <thead>

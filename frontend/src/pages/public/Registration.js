@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import '../../App.css'
 import './css/Registration.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -57,28 +58,27 @@ export default function Registration() {
 
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Jméno</label>
-          <input type={'text'} name='firstname' value={formData.firstname} onChange={handleChange} className="form-control" id="firstname" aria-describedby="emailHelp"/>
+          <input type={'text'} name='firstname' value={formData.firstname} onChange={handleChange} className="form-control custom-placeholder" id="firstname" aria-describedby="emailHelp" placeholder='John'/>
         </div>
 
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Příjmení</label>
-          <input type={'text'} name='lastname' value={formData.lastname} onChange={handleChange} className="form-control" id="lastname" aria-describedby="emailHelp"/>
+          <input type={'text'} name='lastname' value={formData.lastname} onChange={handleChange} className="form-control custom-placeholder" id="lastname" aria-describedby="emailHelp" placeholder='Doe'/>
         </div>
 
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
-          <input type={'text'} name='username' value={formData.username} onChange={handleChange} className="form-control" id="email" aria-describedby="emailHelp"/>
-          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+          <input type={'text'} name='username' value={formData.username} onChange={handleChange} className="form-control custom-placeholder" id="email" aria-describedby="emailHelp" placeholder='john.doe@example.com'/>
         </div>
 
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">Heslo</label>
-          <input type={'password'} name='password' value={formData.password} onChange={handleChange} className="form-control" id="password"/>
+          <input type={'password'} name='password' value={formData.password} onChange={handleChange} className="form-control custom-placeholder" id="password" placeholder='*****'/>
         </div>
 
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">Potvrdit heslo</label>
-          <input type={'password'} name='confirmPassword' value={formData.confirmPassword} onChange={handleChange} className="form-control" id="confirmPassword"/>
+          <input type={'password'} name='confirmPassword' value={formData.confirmPassword} onChange={handleChange} className="form-control custom-placeholder" id="confirmPassword" placeholder='*****'/>
         </div>
 
         <button type="submit" className="btn btn-primary" >Submit</button>
