@@ -31,9 +31,12 @@ export default function UserCalendar() {
 
       const formattedEvents = data.map(event => ({
         id: event.id,
-        title: event.name,
+        name: event.name,
+        startAt: event.startAt,
+        endAt: event.endAt,
         start: new Date(event.startAt),
         end: new Date(event.endAt),
+        title: event.name,
       }));
 
       setEvents(formattedEvents);
@@ -58,7 +61,7 @@ export default function UserCalendar() {
           Přidat Událost
         </button>
       </div>
-        <AddEvent />
+        <AddEvent onSuccess={loadEvents}/>
         
         <BigCalendar
           localizer={localizer}

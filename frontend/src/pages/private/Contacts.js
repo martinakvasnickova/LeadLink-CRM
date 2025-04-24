@@ -43,10 +43,10 @@ export default function Contacts() {
         <button type="button" className="btn custom-button-primary-filled-mint" data-bs-toggle="modal" data-bs-target="#addContactModal">
           Přidat Kontakt
         </button>
-        <AddContact />
+        <AddContact onSuccess={loadContacts} />
       </div>
 
-        <table className="table table-striped table-hover ">
+        <table className="table table-striped table-hover custom-table ">
           <thead>
             <tr>
               <th scope="col">#</th>

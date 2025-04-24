@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axiosInstance from '../../axiosConfig';
+import { Modal } from 'bootstrap';
 
 export default function EditCase({businessCase, refreshBusinessCases}) {
     const [updatedBusinessCase, setUpdatedBusinessCase] = useState(businessCase);
@@ -12,10 +13,25 @@ export default function EditCase({businessCase, refreshBusinessCases}) {
         setUpdatedBusinessCase({...updatedBusinessCase, [e.target.name]: e.target.value});
     }
 
-    const onSubmit = async (e) =>{
-        e.preventDefault();
-        await axiosInstance.put(`http://localhost:8080/case/${updatedBusinessCase.id}`, updatedBusinessCase);
+    
+
+    const onSubmit = async (e) => {
+      e.preventDefault();
+      await axiosInstance.put(`http://localhost:8080/case/${updatedBusinessCase.id}`, updatedBusinessCase);
+    
+      const modalElement = document.getElementById('editCaseModal');
+      const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+      modal.hide();
+  
+      document.body.classList.remove('modal-open'); 
+      const modalBackdrop = document.querySelector('.modal-backdrop');
+      if (modalBackdrop) modalBackdrop.remove(); 
+  
+      refreshBusinessCases();
     };
+
+    
+
 
   return (
     <div className="modal fade" id="editCaseModal" tabIndex="-1" aria-labelledby="editCaseLabel" aria-hidden="true">

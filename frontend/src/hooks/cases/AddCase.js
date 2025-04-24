@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../axiosConfig'
+import { Modal } from 'bootstrap';
 
-export default function AddCase() {
+import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+
+export default function AddCase({ onSuccess }) {
 
     let navigate = useNavigate()
 
@@ -17,11 +20,30 @@ export default function AddCase() {
         setBusinessCase({...businessCase, [e.target.name]:e.target.value})
     }
 
-    const onSubmit = async(e)=>{
-        e.preventDefault();
-        await axiosInstance.post('http://localhost:8080/case', businessCase);
-        navigate('/cases');
-    }
+    
+
+    const onSubmit = async (e) => {
+      e.preventDefault();
+    
+      await axiosInstance.post('http://localhost:8080/case', businessCase);
+    
+      const modalElement = document.getElementById('addCaseModal');
+      const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+      modal.hide();
+    
+      document.body.classList.remove('modal-open'); 
+      const modalBackdrop = document.querySelector('.modal-backdrop');
+      if (modalBackdrop) modalBackdrop.remove(); 
+    
+      setBusinessCase({
+        name:"",
+        price:""
+      });
+  
+      if (onSuccess) onSuccess();
+    };
+
+
   return (
     <form class="modal fade" id="addCaseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" onSubmit={(e)=>onSubmit(e)}>
     <div class="modal-dialog">

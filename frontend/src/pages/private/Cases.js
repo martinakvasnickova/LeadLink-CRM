@@ -6,6 +6,7 @@ import axiosInstance from '../../axiosConfig';
 import AddCase from '../../hooks/cases/AddCase';
 import EditCase from '../../hooks/cases/EditCase';
 
+
 import '../../App.css';
 import './css/Layout.css';
 
@@ -73,7 +74,7 @@ export default function Cases() {
           </button>
         </div>
 
-        <AddCase />
+        <AddCase onSuccess={loadBusinessCases} />
 
         <table className="table table-striped table-hover custom-table">
           <thead>

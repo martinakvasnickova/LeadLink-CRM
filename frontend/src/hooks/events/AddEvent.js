@@ -4,7 +4,9 @@ import axiosInstance from '../../axiosConfig';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as bootstrap from 'bootstrap';
 
-export default function AddEvent() {
+import { Modal } from 'bootstrap';
+
+export default function AddEvent({ onSuccess }) {
 
   let navigate = useNavigate();
 
@@ -21,13 +23,28 @@ export default function AddEvent() {
     setEvent({ ...event, [e.target.name]: e.target.value });
   };
 
+  
+
   const onSubmit = async (e) => {
     e.preventDefault();
+    
     await axiosInstance.post('http://localhost:8080/event', event);
-    const modal = document.getElementById('addEventModal');
-    const modalInstance = bootstrap.Modal.getInstance(modal); 
-    modalInstance.hide(); 
-    navigate('/user-calendar');
+
+    const modalElement = document.getElementById('addEventModal');
+    const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+    modal.hide();
+
+    document.body.classList.remove('modal-open'); 
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    if (modalBackdrop) modalBackdrop.remove(); 
+
+    setEvent({
+      name: "",
+      startAt: "",
+      endAt: ""
+    });
+
+    if (onSuccess) onSuccess();
   };
 
   return (

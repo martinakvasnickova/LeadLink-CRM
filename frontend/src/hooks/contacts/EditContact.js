@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../axiosConfig';
 
+import { Modal } from 'bootstrap';
+
 export default function EditContact({ contact, refreshContacts }) {
   const [updatedContact, setUpdatedContact] = useState(contact);
 
@@ -16,6 +18,18 @@ export default function EditContact({ contact, refreshContacts }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     await axiosInstance.put(`http://localhost:8080/contact/${updatedContact.id}`, updatedContact);
+    
+    // Zavřít modal
+    const modalElement = document.getElementById('editContactModal');
+    const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+    modal.hide();
+
+    // Ručně odstranit backdrop a 'modal-open' třídu
+    document.body.classList.remove('modal-open'); // odstraní modal-open
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    if (modalBackdrop) modalBackdrop.remove(); // odstraní backdrop
+
+    // Spustit refresh v rodiči
     refreshContacts();
   };
 

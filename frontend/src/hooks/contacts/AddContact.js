@@ -2,8 +2,11 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../axiosConfig'
+import { Modal } from 'bootstrap';
 
-export default function AddContact() {
+import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
+
+export default function AddContact({ onSuccess }) {
 
     let navigate = useNavigate()
 
@@ -19,11 +22,32 @@ export default function AddContact() {
         setContact({...contact,[e.target.name]:e.target.value})
     }
 
-    const onSubmit=async(e)=>{
-        e.preventDefault();
-        await axiosInstance.post('http://localhost:8080/contact', contact);
-        navigate('/contacts');
-    }
+    const onSubmit = async (e) => {
+      e.preventDefault();
+    
+      await axiosInstance.post('http://localhost:8080/contact', contact);
+    
+      // Zavřít modal
+      const modalElement = document.getElementById('addContactModal');
+      const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+      modal.hide();
+    
+      // Ručně odstranit backdrop a 'modal-open' třídu
+      document.body.classList.remove('modal-open'); // odstraní modal-open
+      const modalBackdrop = document.querySelector('.modal-backdrop');
+      if (modalBackdrop) modalBackdrop.remove(); // odstraní backdrop
+    
+      // Vymazat formulář
+      setContact({
+        firstname: "",
+        lastname: "",
+        email: ""
+      });
+    
+      // Spustit refresh v rodiči
+      if (onSuccess) onSuccess();
+    };
+    
 
   return (
     <form class="modal fade" id="addContactModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" onSubmit={(e)=>onSubmit(e)}>
