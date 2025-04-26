@@ -33,6 +33,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
+    @PostMapping("/register-admin")
+    public ResponseEntity<Users> newAdmin(@RequestBody Users user) {
+        Users newAdmin = userService.createAdmin(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newAdmin);
+    }
+
+
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {

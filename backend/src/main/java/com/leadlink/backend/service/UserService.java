@@ -35,6 +35,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public Users createAdmin(Users user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRole(Role.ADMIN);
+        return userRepository.save(user);
+    }
+
+
     public List<Users> getAllUsers(){
         return userRepository.findAll();
     }
