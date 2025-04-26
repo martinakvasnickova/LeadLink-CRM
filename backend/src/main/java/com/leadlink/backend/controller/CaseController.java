@@ -1,10 +1,12 @@
 package com.leadlink.backend.controller;
 
 import com.leadlink.backend.dto.CaseDTO;
+import com.leadlink.backend.dto.CaseRequestDTO;
 import com.leadlink.backend.model.Cases;
 import com.leadlink.backend.model.Contact;
 import com.leadlink.backend.service.CaseService;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,9 +21,16 @@ public class CaseController {
         this.caseService = caseService;
     }
 
+    /*
     @PostMapping
     public Cases newCase(@RequestBody Cases newCase){
         return caseService.createCase(newCase);
+    }
+     */
+
+    @PostMapping
+    public Cases newCase(@Valid @RequestBody CaseRequestDTO caseRequestDTO) {
+        return caseService.createCase(caseRequestDTO);
     }
 
     @GetMapping
@@ -50,9 +59,17 @@ public class CaseController {
         return caseService.getCaseById(id);
     }
 
+    /*
     @PutMapping("/{id}")
     public Cases updateCase(@RequestBody Cases newCase, @PathVariable Long id){
         return caseService.updateCase(id, newCase);
+    }
+
+     */
+
+    @PutMapping("/{id}")
+    public Cases updateCase(@PathVariable Long id, @Valid @RequestBody CaseRequestDTO caseRequestDTO) {
+        return caseService.updateCase(id, caseRequestDTO);
     }
 
     @DeleteMapping("/{id}")

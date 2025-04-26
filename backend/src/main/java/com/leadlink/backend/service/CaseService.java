@@ -1,6 +1,7 @@
 package com.leadlink.backend.service;
 
 
+import com.leadlink.backend.dto.CaseRequestDTO;
 import com.leadlink.backend.exception.CaseNotFoundException;
 import com.leadlink.backend.model.Cases;
 import com.leadlink.backend.model.Users;
@@ -24,6 +25,7 @@ public class CaseService {
         this.userRepository = userRepository;
     }
 
+    /*
     public Cases createCase(Cases caseEntity){
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userPrincipal.getUsername();
@@ -36,6 +38,25 @@ public class CaseService {
         return caseRepository.save(caseEntity);
     }
 
+     */
+
+    public Cases createCase(CaseRequestDTO caseRequestDTO){
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userPrincipal.getUsername();
+
+        Users user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        Cases newCase = new Cases();
+        newCase.setName(caseRequestDTO.getName());
+        newCase.setPrice(caseRequestDTO.getPrice());
+        newCase.setUser(user);
+
+        return caseRepository.save(newCase);
+    }
+
     public List<Cases> getAllCases(){
         return caseRepository.findAll();
     }
@@ -45,6 +66,7 @@ public class CaseService {
                 .orElseThrow(()-> new CaseNotFoundException(id));
     }
 
+    /*
     public Cases updateCase(Long id, Cases newCase){
         return caseRepository.findById(id)
                 .map(caseEntity ->{
@@ -52,6 +74,17 @@ public class CaseService {
                     caseEntity.setPrice(newCase.getPrice());
                     return caseRepository.save(caseEntity);
                 }).orElseThrow(()->new CaseNotFoundException(id));
+    }
+
+     */
+
+    public Cases updateCase(Long id, CaseRequestDTO caseRequestDTO){
+        return caseRepository.findById(id)
+                .map(caseEntity -> {
+                    caseEntity.setName(caseRequestDTO.getName());
+                    caseEntity.setPrice(caseRequestDTO.getPrice());
+                    return caseRepository.save(caseEntity);
+                }).orElseThrow(() -> new CaseNotFoundException(id));
     }
 
     public void deleteCase(Long id){
