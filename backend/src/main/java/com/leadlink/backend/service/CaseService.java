@@ -11,11 +11,16 @@ import com.leadlink.backend.security.UserPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 @Service
 public class CaseService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CaseService.class);
+
 
     private final CaseRepository caseRepository;
     private final UserRepository userRepository;
@@ -46,6 +51,7 @@ public class CaseService {
 
         Users user = userRepository.findByUsername(username);
         if (user == null) {
+            logger.error("Uživatel nebyl nalezen: {}", username);
             throw new RuntimeException("User not found");
         }
 
@@ -53,15 +59,18 @@ public class CaseService {
         newCase.setName(caseRequestDTO.getName());
         newCase.setPrice(caseRequestDTO.getPrice());
         newCase.setUser(user);
+        logger.info("Nový případ vytvořen uživatelem: {}", username);
 
         return caseRepository.save(newCase);
     }
 
     public List<Cases> getAllCases(){
+        logger.info("Načítám všechny případy");
         return caseRepository.findAll();
     }
 
     public Cases getCaseById(Long id){
+        logger.info("Načítám případ s ID: {}", id);
         return caseRepository.findById(id)
                 .orElseThrow(()-> new CaseNotFoundException(id));
     }
@@ -79,6 +88,7 @@ public class CaseService {
      */
 
     public Cases updateCase(Long id, CaseRequestDTO caseRequestDTO){
+        logger.info("Aktualizuji případ s ID: {}", id);
         return caseRepository.findById(id)
                 .map(caseEntity -> {
                     caseEntity.setName(caseRequestDTO.getName());
@@ -89,15 +99,19 @@ public class CaseService {
 
     public void deleteCase(Long id){
         if(!caseRepository.existsById(id)){
+            logger.error("Případ s ID {} pro smazání nebyl nalezen", id);
             throw new CaseNotFoundException(id);
         }
+        logger.warn("Případ s ID {} byl smazán", id);
         caseRepository.deleteById(id);
     }
 
     public List<Cases>getCasesForCurrentUser(){
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userPrincipal.getUsername();
+        logger.info("Načítám případy pro uživatele: {}", username);
         return caseRepository.findByUserUsername(username);
+
     }
 
 }

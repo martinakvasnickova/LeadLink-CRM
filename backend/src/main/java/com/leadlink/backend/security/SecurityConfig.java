@@ -43,7 +43,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/user/login", "/user/register", "/swagger-ui/**", "/swagger-ui.html", "/v1/api-docs", "/swagger-ui/**",  "/v3/api-docs/swagger-config").permitAll()
+                        .requestMatchers("/user/login",
+                                "/actuator/metrics",
+                                "/user/register",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html").permitAll()
                         .requestMatchers("/admin/**", "/user/register-admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
