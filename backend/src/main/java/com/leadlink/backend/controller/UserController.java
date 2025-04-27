@@ -1,5 +1,6 @@
 package com.leadlink.backend.controller;
 
+import com.leadlink.backend.dto.UserRequestDTO;
 import com.leadlink.backend.model.JwtResponse;
 import com.leadlink.backend.model.LoginRequest;
 import com.leadlink.backend.model.Users;
@@ -7,12 +8,17 @@ import com.leadlink.backend.security.JwtService;
 import com.leadlink.backend.security.UserPrincipal;
 import com.leadlink.backend.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/**
+ * Controller pro správu uživatelských operací: registrace, přihlášení.
+ */
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -27,20 +33,28 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
+
+    /**
+     * Registrace nového uživatele
+     */
     @PostMapping("/register")
-    public ResponseEntity<Users> newUser(@RequestBody() Users user){
-        Users newUser = userService.createUser(user);
+    public ResponseEntity<Users> newUser(@Valid @RequestBody UserRequestDTO userRequestDTO){
+        Users newUser = userService.createUser(userRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
+    /**
+     * Registrace nového administrátora
+     */
     @PostMapping("/register-admin")
-    public ResponseEntity<Users> newAdmin(@RequestBody Users user) {
-        Users newAdmin = userService.createAdmin(user);
+    public ResponseEntity<Users> newAdmin(@Valid @RequestBody UserRequestDTO userRequestDTO) {
+        Users newAdmin = userService.createAdmin(userRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(newAdmin);
     }
 
-
-
+    /**
+     * Přihlášení uživatele a generování JWT tokenu.
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
@@ -48,18 +62,16 @@ public class UserController {
 
             if (isAuthenticated) {
                 Users user = userService.findByUsername(loginRequest.getUsername());
-                UserPrincipal userDetails = new UserPrincipal(user); // <- konverze na UserDetails
+                UserPrincipal userDetails = new UserPrincipal(user);
 
-                // Debug log
                 System.out.println("User authenticated: " + userDetails.getUsername());
 
-                String token = jwtService.generateToken(userDetails); // generování tokenu
+                String token = jwtService.generateToken(userDetails);
                 return ResponseEntity.ok(new JwtResponse(token));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
             }
         } catch (Exception e) {
-            // Log error
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
         }

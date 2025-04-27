@@ -9,6 +9,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Implementace rozhraní UserDetails, která reprezentuje přihlášeného uživatele.
+ */
+
 public class UserPrincipal implements UserDetails {
 
     private Users user;

@@ -7,23 +7,50 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 
+/**
+ * Entity reprezentující obchodní případ (Case) v systému.
+ * Každý případ je propojen s uživatelem (vlastníkem) a může být spojen s více kontakty.
+ */
+
 @Entity
 public class Cases{
     @Id
     @GeneratedValue
-    private Long id;
-    private String name;
-    private float price;
+    private Long id; // Unikátní identifikátor případu
+    private String name; // Název případu
+    private float price; // Cena případu
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users user;
+    @JsonIgnore
+    private Users user; // Vlastník případu
 
     @OneToMany(mappedBy = "cases", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private List<ContactCase> contactCases;
+    private List<ContactCase> contactCases; // Seznam vazeb na kontakty
 
+    /**
+     * Výchozí konstruktor.
+     */
     public Cases() {}
+
+
+    /**
+     * Konstruktor s parametry.
+     *
+     * @param id    ID případu
+     * @param name  Název případu
+     * @param price Cena případu
+     * @param user  Vlastník případu
+     */
+    public Cases(Long id, String name, float price, Users user) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.user = user;
+    }
+
+    // Gettery a settery
 
     public List<ContactCase> getContactCases() {
         return contactCases;
@@ -32,15 +59,6 @@ public class Cases{
     public void setContactCases(List<ContactCase> contactCases) {
         this.contactCases = contactCases;
     }
-
-    public Cases(Long id, String name, float price, Users user) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.user = user;
-    }
-
-
 
     public Long getId() {
         return id;

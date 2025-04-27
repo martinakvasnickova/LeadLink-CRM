@@ -13,6 +13,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Služba pro generování a ověřování JWT tokenů.
+ */
+
 @Service
 public class JwtService {
 
@@ -24,6 +28,9 @@ public class JwtService {
         this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
+    /**
+     * Generuje nový JWT token pro uživatele.
+     */
     public String generateToken(UserPrincipal userPrincipal) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", userPrincipal.getAuthorities().stream()
@@ -38,6 +45,9 @@ public class JwtService {
                 .compact();
     }
 
+    /**
+     * Extrahuje uživatelské jméno z tokenu.
+     */
     public String extractUsername(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
@@ -47,6 +57,9 @@ public class JwtService {
                 .getSubject();
     }
 
+    /**
+     * Ověřuje, zda je token platný.
+     */
     public boolean isTokenValid(String token) {
         try {
             String username = extractUsername(token);

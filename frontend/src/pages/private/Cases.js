@@ -42,22 +42,38 @@ export default function Cases() {
   };
 
   const attachContactToCase = async (caseId, contactId) => {
+    console.log("Odesílám payload na server:", {
+      contact: { id: contactId },
+      cases: { id: caseId }
+    });
+  
     await axiosInstance.post('http://localhost:8080/contact-case', {
       contact: { id: contactId },
       cases: { id: caseId }
     });
+  
     loadBusinessCases(); 
   };
+  
+  
+  
 
   const loadContactCases = async () => {
     const result = await axiosInstance.get('http://localhost:8080/contact-case');
     setContactCases(result.data);
   };
 
+  //
+  //const getContactForCase = (caseId) => {
+  //  const relation = contactCases.find(cc => cc.cases.id === caseId);
+  //  return relation ? relation.contact : null;
+  //};
+
   const getContactForCase = (caseId) => {
-    const relation = contactCases.find(cc => cc.cases.id === caseId);
+    const relation = contactCases.find(cc => cc.cases && cc.cases.id === caseId);
     return relation ? relation.contact : null;
   };
+  
 
   return (
     <div className='content'>
@@ -138,10 +154,11 @@ export default function Cases() {
             <div className="modal-body">
               <h6>Vyberte kontakt:</h6>
               <select
-                className="form-select"
-                onChange={(e) => setSelectedContact(e.target.value)}
-                defaultValue=""
-              >
+  className="form-select"
+  onChange={(e) => setSelectedContact(Number(e.target.value))}   // DŮLEŽITÉ!!
+  defaultValue=""
+>
+
                 <option value="" disabled>
                   Vyberte kontakt
                 </option>
@@ -164,11 +181,15 @@ export default function Cases() {
                 type="button"
                 className="btn btn-primary"
                 onClick={() => {
-                  if (selectedContact) {
+                  if (selectedBusinessCase && selectedContact) {
                     attachContactToCase(selectedBusinessCase.id, selectedContact);
                     setSelectedContact(null);
+                  } else {
+                    console.error("Kontakt nebo případ není vybrán", selectedContact, selectedBusinessCase);
+                    alert("Musíte vybrat kontakt i případ.");
                   }
                 }}
+                
               >
                 Připojit
               </button>

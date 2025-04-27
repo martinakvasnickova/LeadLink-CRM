@@ -14,6 +14,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Filter, který kontroluje JWT tokeny v příchozích požadavcích a autentizuje uživatele.
+ */
+
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 

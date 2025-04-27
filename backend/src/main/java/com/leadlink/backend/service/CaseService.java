@@ -16,12 +16,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+/**
+ * Servisní třída pro práci s obchodními případy (Cases).
+ * Obsahuje logiku pro vytváření, načítání, aktualizaci a mazání případů.
+ */
+
 @Service
 public class CaseService {
 
     private static final Logger logger = LoggerFactory.getLogger(CaseService.class);
-
-
     private final CaseRepository caseRepository;
     private final UserRepository userRepository;
 
@@ -30,21 +33,13 @@ public class CaseService {
         this.userRepository = userRepository;
     }
 
-    /*
-    public Cases createCase(Cases caseEntity){
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = userPrincipal.getUsername();
-
-        Users user = userRepository.findByUsername(username);
-        if(user == null){
-            throw new RuntimeException("User not found");
-        }
-        caseEntity.setUser(user);
-        return caseRepository.save(caseEntity);
-    }
-
+    /**
+     * Vytvoří nový případ a přiřadí jej aktuálně přihlášenému uživateli.
+     *
+     * @param caseRequestDTO DTO objekt obsahující data nového případu
+     * @return Vytvořený případ
+     * @throws RuntimeException pokud uživatel není nalezen
      */
-
     public Cases createCase(CaseRequestDTO caseRequestDTO){
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userPrincipal.getUsername();
@@ -64,29 +59,38 @@ public class CaseService {
         return caseRepository.save(newCase);
     }
 
+    /**
+     * Načte všechny existující případy v systému.
+     *
+     * @return Seznam všech případů
+     */
     public List<Cases> getAllCases(){
         logger.info("Načítám všechny případy");
         return caseRepository.findAll();
     }
 
+    /**
+     * Načte případ podle jeho ID.
+     *
+     * @param id ID případu
+     * @return Případ odpovídající danému ID
+     * @throws CaseNotFoundException pokud případ není nalezen
+     */
     public Cases getCaseById(Long id){
         logger.info("Načítám případ s ID: {}", id);
         return caseRepository.findById(id)
                 .orElseThrow(()-> new CaseNotFoundException(id));
     }
 
-    /*
-    public Cases updateCase(Long id, Cases newCase){
-        return caseRepository.findById(id)
-                .map(caseEntity ->{
-                    caseEntity.setName(newCase.getName());
-                    caseEntity.setPrice(newCase.getPrice());
-                    return caseRepository.save(caseEntity);
-                }).orElseThrow(()->new CaseNotFoundException(id));
-    }
 
+    /**
+     * Aktualizuje existující případ podle ID.
+     *
+     * @param id ID aktualizovaného případu
+     * @param caseRequestDTO DTO obsahující nová data
+     * @return Aktualizovaný případ
+     * @throws CaseNotFoundException pokud případ není nalezen
      */
-
     public Cases updateCase(Long id, CaseRequestDTO caseRequestDTO){
         logger.info("Aktualizuji případ s ID: {}", id);
         return caseRepository.findById(id)
@@ -97,6 +101,12 @@ public class CaseService {
                 }).orElseThrow(() -> new CaseNotFoundException(id));
     }
 
+    /**
+     * Smaže případ podle jeho ID.
+     *
+     * @param id ID případu
+     * @throws CaseNotFoundException pokud případ není nalezen
+     */
     public void deleteCase(Long id){
         if(!caseRepository.existsById(id)){
             logger.error("Případ s ID {} pro smazání nebyl nalezen", id);
@@ -106,6 +116,11 @@ public class CaseService {
         caseRepository.deleteById(id);
     }
 
+    /**
+     * Načte případy aktuálně přihlášeného uživatele.
+     *
+     * @return Seznam případů patřících přihlášenému uživateli
+     */
     public List<Cases>getCasesForCurrentUser(){
         UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userPrincipal.getUsername();

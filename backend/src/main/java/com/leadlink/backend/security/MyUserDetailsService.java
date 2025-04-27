@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Služba pro načítání uživatelských detailů na základě uživatelského jména.
+ */
+
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -16,6 +20,9 @@ public class MyUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Načte uživatelské údaje podle uživatelského jména.
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = userRepository.findByUsername(username);

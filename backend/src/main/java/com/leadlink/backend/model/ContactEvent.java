@@ -1,5 +1,6 @@
 package com.leadlink.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,10 +11,12 @@ public class ContactEvent {
 
     @ManyToOne
     @JoinColumn(name = "contact_id", nullable = false)
+    @JsonIgnore
     private Contact contact;
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
+    @JsonIgnore
     private Events event;
 
     public ContactEvent(){}

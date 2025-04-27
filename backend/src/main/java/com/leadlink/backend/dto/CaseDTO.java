@@ -1,17 +1,33 @@
 package com.leadlink.backend.dto;
 
+/**
+ * DTO (Data Transfer Object) pro zjednodušenou reprezentaci obchodního případu.
+ * Slouží k odesílání základních dat o případech na frontend.
+ */
+
 public class CaseDTO {
     private Long id;
     private String name;
     private double price;
     private String contactName;
 
+    private String username;
 
-    public CaseDTO(Long id, String name, double price, String contactName) {
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public CaseDTO(Long id, String name, double price, String contactName, String username) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.contactName = contactName;
+        this.username = username;
     }
 
     public Long getId() {

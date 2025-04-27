@@ -3,6 +3,11 @@ package com.leadlink.backend.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 
+/**
+ * DTO pro přijímání dat při vytváření nebo aktualizaci obchodního případu.
+ * Obsahuje validační anotace pro kontrolu vstupních dat.
+ */
+
 public class CaseRequestDTO {
 
     @NotBlank(message = "Name must not be blank")

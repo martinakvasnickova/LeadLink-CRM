@@ -5,6 +5,11 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entita reprezentující uživatele v systému.
+ * Uživatel má osobní údaje, přihlašovací údaje a přiřazenou roli.
+ */
+
 @Entity
 public class Users {
 
@@ -23,6 +28,7 @@ public class Users {
     @Column(nullable = false)
     private Role role;
 
+    // Gettery a settery
 
     public String getPasswordHash() {
         return passwordHash;

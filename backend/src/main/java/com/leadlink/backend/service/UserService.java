@@ -1,5 +1,7 @@
 package com.leadlink.backend.service;
 
+import com.leadlink.backend.controller.CaseController;
+import com.leadlink.backend.dto.UserRequestDTO;
 import com.leadlink.backend.exception.ContactNotFoundException;
 import com.leadlink.backend.exception.UserNotFoundException;
 import com.leadlink.backend.model.Contact;
@@ -10,47 +12,89 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
+
+/**
+ * Servisní vrstva pro správu uživatelů.
+ * Zajišťuje registraci, autentizaci a CRUD operace s uživateli.
+ */
 
 @Service
 public class UserService {
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final UserRepository userRepository;
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public UserService(BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
+
+    /**
+     * Vyhledá uživatele podle uživatelského jména.
+     */
 
     public Users findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-
-    public Users createUser(Users user){
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+    /**
+     * Vytvoří běžného uživatele
+     */
+    public Users createUser(UserRequestDTO userRequestDTO) {
+        Users user = new Users();
+        user.setFirstname(userRequestDTO.getFirstname());
+        user.setLastname(userRequestDTO.getLastname());
+        user.setEmail(userRequestDTO.getEmail());
+        user.setUsername(userRequestDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
         user.setRole(Role.USER);
+        logger.info("Vytvářím nového uživatele: {}", user.getUsername());
+
         return userRepository.save(user);
     }
 
-    public Users createAdmin(Users user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+    /**
+     * Vytvoří administrátora
+     */
+    public Users createAdmin(UserRequestDTO userRequestDTO) {
+        Users user = new Users();
+        user.setFirstname(userRequestDTO.getFirstname());
+        user.setLastname(userRequestDTO.getLastname());
+        user.setEmail(userRequestDTO.getEmail());
+        user.setUsername(userRequestDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
         user.setRole(Role.ADMIN);
+
+        logger.info("Vytvářím nového administrátora: {}", user.getUsername());
+
         return userRepository.save(user);
     }
 
-
+    /**
+     * Načte všechny uživatele.
+     */
     public List<Users> getAllUsers(){
         return userRepository.findAll();
     }
 
+    /**
+     * Najde uživatele podle ID.
+     */
     public Users getUserById(Long id){
         return userRepository.findById(id)
                 .orElseThrow(()-> new UserNotFoundException(id));
     }
 
+    /**
+     * Aktualizuje existujícího uživatele.
+     */
     public Users updateUser(Long id, Users newUser){
         return userRepository.findById(id)
                 .map(user ->{
@@ -64,6 +108,9 @@ public class UserService {
                 }).orElseThrow(()-> new UserNotFoundException(id));
     }
 
+    /**
+     * Smaže uživatele podle ID.
+     */
     public void deleteUser(Long id){
         if(!userRepository.existsById(id)){
             throw new UserNotFoundException(id);
@@ -71,6 +118,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    /**
+     * Ověří přihlašovací údaje uživatele.
+     */
     public boolean authenticate(String username, String password){
         Users user = userRepository.findByUsername(username);
 
@@ -78,7 +128,7 @@ public class UserService {
             throw new UsernameNotFoundException("User not found in the database.");
         }
 
-        if (!bCryptPasswordEncoder.matches(password, user.getPassword())) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadCredentialsException("The password is incorrect");
         }
 

@@ -6,6 +6,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * Implementace tokenu pro JWT autentizaci.
+ * Obsahuje informace o uživateli (principal) a jeho přihlašovacích údajích (credentials).
+ */
+
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     private final UserDetails principal;
