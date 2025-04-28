@@ -10,12 +10,10 @@ public class ContactCase {
 
     @ManyToOne
     @JoinColumn(name = "contact_id", nullable = false)
-    @JsonIgnore
     private Contact contact;
 
     @ManyToOne
     @JoinColumn(name = "case_id", nullable = false)
-    @JsonIgnore
     private Cases cases;
 
     private String role;

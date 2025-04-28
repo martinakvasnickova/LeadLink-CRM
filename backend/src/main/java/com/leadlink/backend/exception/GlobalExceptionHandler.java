@@ -138,4 +138,45 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+
+    /**
+     * Zpracuje chybu nenalezeného kontaktu (Contact).
+     *
+     * @param ex      Výjimka nenalezení kontaktu
+     * @param request WebRequest objekt
+     * @return Odpověď o nenalezení kontaktu
+     */
+    @ExceptionHandler(ContactNotFoundException.class)
+    public ResponseEntity<ApiResponse<Object>> handleContactNotFound(ContactNotFoundException ex, WebRequest request) {
+        logger.error("Kontakt nenalezen: {}", ex.getMessage());
+        ApiResponse<Object> response = new ApiResponse<>(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                null,
+                null
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Zpracuje chybu nenalezené události (Event).
+     *
+     * @param ex      Výjimka nenalezení kontaktu
+     * @param request WebRequest objekt
+     * @return Odpověď o nenalezení události
+     */
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<ApiResponse<Object>> handleEventNotFound(EventNotFoundException ex, WebRequest request) {
+        logger.error("Event nenalezen: {}", ex.getMessage());
+        ApiResponse<Object> response = new ApiResponse<>(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                null,
+                null
+        );
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+
 }
