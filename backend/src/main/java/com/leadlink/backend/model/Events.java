@@ -17,19 +17,34 @@ public class Events {
     private LocalDateTime endAt;
 
     @ManyToOne
+    @JoinColumn(name = "case_id")
+    @JsonIgnore
+    private Cases cases;
+
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private Users user;
 
     public Events(){}
 
-    public Events(Long id, String name, LocalDateTime createdAt, LocalDateTime startAt, LocalDateTime endAt, Users user) {
+    public Events(Long id, String name, LocalDateTime createdAt, LocalDateTime startAt, LocalDateTime endAt, Cases cases, Users user) {
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
         this.startAt = startAt;
         this.endAt = endAt;
+        this.cases = cases;
         this.user = user;
+    }
+
+    public Cases getCases() {
+        return cases;
+    }
+
+    public void setCases(Cases cases) {
+        this.cases = cases;
     }
 
     public Long getId() {

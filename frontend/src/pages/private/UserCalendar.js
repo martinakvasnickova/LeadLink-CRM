@@ -28,7 +28,7 @@ export default function UserCalendar() {
     try {
       const response = await axiosInstance.get('http://localhost:8080/event/user');
       const data = response.data;
-
+  
       const formattedEvents = data.map(event => ({
         id: event.id,
         name: event.name,
@@ -37,13 +37,15 @@ export default function UserCalendar() {
         start: new Date(event.startAt),
         end: new Date(event.endAt),
         title: event.name,
+        caseId: event.caseId, // >>> přidat sem!
       }));
-
+  
       setEvents(formattedEvents);
     } catch (error) {
       console.error("Chyba při načítání eventů:", error);
     }
   };
+  
 
   const handleSelectEvent = (event) => {
     setSelectedEvent(event); 

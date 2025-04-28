@@ -19,12 +19,23 @@ public class EventRequestDTO {
     @Future(message = "End time must be in the future")
     private LocalDateTime endAt;
 
+    private Long caseId;
+
     public EventRequestDTO() {}
 
-    public EventRequestDTO(String name, LocalDateTime startAt, LocalDateTime endAt) {
+    public EventRequestDTO(String name, LocalDateTime startAt, LocalDateTime endAt, Long caseId) {
         this.name = name;
         this.startAt = startAt;
         this.endAt = endAt;
+        this.caseId = caseId;
+    }
+
+    public Long getCaseId() {
+        return caseId;
+    }
+
+    public void setCaseId(Long caseId) {
+        this.caseId = caseId;
     }
 
     public String getName() {

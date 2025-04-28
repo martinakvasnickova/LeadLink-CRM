@@ -42,17 +42,19 @@ export default function Cases() {
   };
 
   const attachContactToCase = async (caseId, contactId) => {
-    console.log("Odesílám payload na server:", {
-      contact: { id: contactId },
-      cases: { id: caseId }
+    console.log("Odesílám správný payload na server:", {
+      contactId: contactId,
+      caseId: caseId,
+      role: "Main Contact" // nastav roli, nebo ji dej třeba dynamicky
     });
   
     await axiosInstance.post('http://localhost:8080/contact-case', {
-      contact: { id: contactId },
-      cases: { id: caseId }
+      contactId: contactId,
+      caseId: caseId,
+      role: "Main Contact"
     });
   
-    loadBusinessCases(); 
+    loadContactCases(); // !! Správně načíst aktualizované kontakty
   };
   
   
@@ -70,8 +72,8 @@ export default function Cases() {
   //};
 
   const getContactForCase = (caseId) => {
-    const relation = contactCases.find(cc => cc.cases && cc.cases.id === caseId);
-    return relation ? relation.contact : null;
+    const relation = contactCases.find(cc => cc.caseId === caseId);
+    return relation ? { firstname: relation.contactFirstname, lastname: relation.contactLastname } : null;
   };
   
 
