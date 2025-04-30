@@ -27,6 +27,7 @@ export default function Aside() {
                 
               <label>Obchod</label>
                 <li class="nav-item"><Link className="nav-link text-black" to="/cases"> <CasesIcon/> Případy</Link></li>
+                <li class="nav-item"><Link className="nav-link text-black" to="/invoices"> <CasesIcon/> Fakturace</Link></li>
             </ul>
         </div>
 

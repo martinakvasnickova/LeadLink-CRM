@@ -1,2 +1,7 @@
-package com.leadlink.backend.model;public enum InvoiceStatus {
+package com.leadlink.backend.model;
+
+public enum InvoiceStatus {
+    ISSUED,
+    PAID,
+    CANCELLED
 }
