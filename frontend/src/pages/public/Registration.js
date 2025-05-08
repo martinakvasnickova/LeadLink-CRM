@@ -81,7 +81,7 @@ export default function Registration() {
           <input type={'password'} name='confirmPassword' value={formData.confirmPassword} onChange={handleChange} className="form-control custom-placeholder" id="confirmPassword" placeholder='*****'/>
         </div>
 
-        <button type="submit" className="btn btn-primary" >Submit</button>
+        <button type="submit" className="btn custom-button-primary-filled-mint" >Submit</button>
 
     </form>
     </div>

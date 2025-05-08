@@ -1,0 +1,41 @@
+.text-slider-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .text-slide {
+    font-size: 64px;
+    font-weight: 700;
+    color: white;
+    position: absolute;
+    opacity: 0;
+    white-space: nowrap;
+  }
+  
+  .animate-in {
+    animation: slide-in-out 3s ease-in-out;
+  }
+  
+  @keyframes slide-in-out {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    15% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    85% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+  

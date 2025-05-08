@@ -1,9 +1,6 @@
-@font-face {
-  font-family: 'ClashDisplay-Regular';
-  src: url('./fonts/clash/ClashDisplay-Regular.woff2');
-  font-weight: normal;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+
+
 
 @font-face {
   font-family: 'WorkSans-Regular';
@@ -14,9 +11,10 @@
 
 
 :root {
-  --font-special: 'ClashDisplay-Regular';
+  --font-special: 'Space Grotesk', sans-serif;
   --font-main: 'WorkSans-Regular';
   --color-primary-purple: #635ee2;
+  --color-primary-olive: #15241D;
   --color-primary-mint: #D3F5CF;
   --color-primary-blue: #A8DBFA;
   --color-background-gray: #F5F6FC;
@@ -45,6 +43,11 @@ p{
   font-family: var(--font-main);
 }
 
+.special-big{
+  font-size: 64px;
+  line-height: 1.1;
+}
+
 
 label{
   font-size: 12px;
@@ -61,11 +64,12 @@ button{
   font-family: var(--font-main) !important;
 }
 
-.custom-button-primary-filled-purple{
-  background-color: var(--color-primary-purple) !important;
+.custom-button-primary-filled-olive{
+  background-color: var(--color-primary-olive) !important;
   color: white !important;
   border: none !important;
   font-family: var(--font-main) !important;
+  border-radius: 50px !important;
 }
 
 .custom-button-primary-filled-mint{
@@ -73,4 +77,5 @@ button{
   color: black !important;
   border: 1px solid var(--color-secondary-text-gray) !important;
   font-family: var(--font-main) !important;
+
 }

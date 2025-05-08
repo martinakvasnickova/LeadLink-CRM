@@ -2,6 +2,7 @@ import React from 'react'
 import NavbarPublic from '../../components/nav/NavbarPublic'
 
 import './css/Home.css';
+import AnimatedTextSlider from '../../components/animations/AnimatedTextSlider';
 
 export default function Home() {
   return (
@@ -11,28 +12,35 @@ export default function Home() {
 
       <div className='viewport one'>
         <NavbarPublic/>
-      </div>
 
-      <div className='viewport two'>
-        <div className="container text-center">
-        <div className="row">
-          <div className="col viewport1 left">
-            <h1>Organizujte svou práci efektivně a jednoduše</h1>
-          </div>
-          <div className="col viewport1">
-            <p>Náš software je navržen tak, aby freelancerům usnadnil organizaci jejich pracovních úkolů. S intuitivním rozhraním a bento stylem si můžete snadno uspořádat svůj den.</p>
-            <div>
-              <button type="button" className="btn btn-outline-dark ll-primary-purple">Zjistit více</button>
-              <button type="button" className="btn btn-outline-dark ll-primary-purple-outline">Registrace</button>
+        <div class="container-fluid text-center mt-4">
+          <div class="row custom-gap">
+            <div class="col col-one-one">
+              <AnimatedTextSlider/>
+            </div>
+            <div class="col col-one-two">
+            <div className="inner-blocks">
+              <div className="inner-block one">
+
+                <div>
+                  <h1 className='special-big'>Tvůj den.</h1>
+                  <h1 className='special-big'>Promyšleně.</h1>
+                  <p>Ušetři čas a měj přehled o tom, co, kdy a pro koho děláš.</p>
+                  <button className=' btn custom-button-primary-filled-olive'>
+                    Vyzkoušet zdarma
+                  </button>
+                </div>
+              </div>
+              <div className="inner-block two"></div>
+            </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
 
-      <div className='viewport'>
-        <p>2</p>
-      </div>
+      
+
+      
 
       </div>
 

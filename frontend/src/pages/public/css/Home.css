@@ -1,10 +1,11 @@
+/*Page */
+
 .home{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
 
 .home-inner{
     width: 100%;
@@ -18,23 +19,89 @@
     padding: 20px 30px;
 }
 
+/*Viewport One - Intro */
+
 .one{
-    height: 50vh;
-    background-image: url('../../../assets/images/SL_060521_43530_17.jpg');
-    background-size: cover; 
-    background-position: center; 
+    height: 150vh;
+}
+
+.one .col{
+    height: 150vh;
+    border-radius: 24px;
+}
+
+.custom-gap {
+    display: flex;
+    gap: 24px;
+  }
+
+  .col-one-one {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .col-one-one::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../assets/images/blurry-gradient-haikei (1).svg');
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    border-radius: 0 0 25px 25px;
-}
+    transform: rotate(180deg);
+    z-index: 0;
+  }
+  
+  /* Obsah nad pozadím */
+  .col-one-one > * {
+    position: relative;
+    z-index: 1;
+  }
 
-.two{
-    height: 50vh;
-}
+.col-one-two {
+    height: 150vh;
+    padding: 0; 
+  }
+  
+  .inner-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 100%;
+  }
+  
+  .inner-block {
+    flex: 1; 
+    border-radius: 24px;
+  }
 
-.navbar-brand{
-    color: #635ee2;
-}
+  .inner-block.one{
+    background-color: #B5FFDC;
+    padding: 40px;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: start;
+  }
+  
+  .inner-block.two{
+    background-image: url('../../../assets/images/pexels-olly-840996.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+
+
+
+
+
+/*? */
 
 .viewport1{
     height: 40vh;
