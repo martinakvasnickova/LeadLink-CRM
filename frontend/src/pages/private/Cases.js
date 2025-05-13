@@ -106,9 +106,9 @@ export default function Cases() {
           </thead>
 
           <tbody>
-            {businessCases.map((businessCase) => (
+            {businessCases.map((businessCase, index) => (
               <tr key={businessCase.id}>
-                <th scope="row">{businessCase.id}</th>
+                <th scope="row">{index + 1}</th>
                 <td>{businessCase.name}</td>
                 <td>{businessCase.price}</td>
                 <td>

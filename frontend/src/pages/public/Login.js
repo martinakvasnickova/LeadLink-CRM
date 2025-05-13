@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../App.css'
 import './css/Registration.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from '../../axiosConfig'; 
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../slices/authSlice';
@@ -48,6 +48,7 @@ export default function Login() {
   return (
     <div className='registration'>
       <form className='registration-form' onSubmit={handleLogin}>
+
         <h2>Přihlášení</h2>
 
         <div className="mb-3">
@@ -78,7 +79,10 @@ export default function Login() {
 
         {error && <div className="text-danger mb-2">{error}</div>}
 
-        <button type="submit" className="btn custom-button-primary-filled-purple">Přihlásit se</button>
+        <button type="submit" className="btn custom-button-primary-filled-olive-maxi">Přihlásit se</button>
+
+        <p>Nemáte účet? <Link className='text-black' to="/registration">Registrujte se</Link></p>
+     
       </form>
     </div>
   );

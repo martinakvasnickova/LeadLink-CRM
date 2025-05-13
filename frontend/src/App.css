@@ -39,7 +39,12 @@ h4{
   color: var(--color-primary-purple) !important;
 }
 
-p{
+p,
+td,
+th,
+h5,
+h6,
+li{
   font-family: var(--font-main);
 }
 
@@ -56,7 +61,8 @@ label{
 }
 
 button{
-  border-radius: 12px !important;
+  border-radius: 50px !important;
+  font-family: var(--font-main) ;
 }
 
 .custom-button-primary-outline-blue{
@@ -70,6 +76,24 @@ button{
   border: none !important;
   font-family: var(--font-main) !important;
   border-radius: 50px !important;
+}
+
+.custom-button-primary-filled-purple{
+  background-color: var(--color-primary-purple) !important;
+  color: white !important;
+  border: none !important;
+  font-family: var(--font-main) !important;
+  border-radius: 50px !important;
+}
+
+.custom-button-primary-filled-olive-maxi{
+  background-color: var(--color-primary-olive) !important;
+  color: white !important;
+  border: none !important;
+  font-family: var(--font-main) !important;
+  border-radius: 50px !important;
+  width: 100%;
+  margin: 20px 0;
 }
 
 .custom-button-primary-filled-mint{

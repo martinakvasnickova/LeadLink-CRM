@@ -59,7 +59,7 @@ export default function Contacts() {
           <tbody>
             {contacts.map((contact, index) => (
               <tr key={contact.id}>
-                <th scope="row">{contact.id}</th>
+                <th scope="row">{index + 1}</th>
                 <td>{contact.firstname}</td>
                 <td>{contact.lastname}</td>
                 <td>{contact.email}</td>
