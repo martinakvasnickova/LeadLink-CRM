@@ -2,7 +2,7 @@
 
 ## Popis projektu a cíle práce
 
-LeadLink je aplikace zaměřená na správu obchodních případů a kontaktů, včetně přidělování případů k uživatelům. Cílem bylo vytvořit bezpečný a škálovatelný backend, který umožní správu uživatelů, autentizaci, autorizaci a správu obchodních případů pomocí moderní architektury REST API.
+LeadLink je aplikace zaměřená na správu obchodních případů a kontaktů, včetně přidělování případů k uživatelům. Cílem bylo vytvořit bezpečný a škálovatelný backend, který umožní správu uživatelů, autentizaci, autorizaci a správu obchodních případů pomocí REST API.
 
 ## Architektura systému
 
