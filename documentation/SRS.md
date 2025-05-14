@@ -121,21 +121,48 @@ Popis konkrétních případů užití, jako je:
   - **Obchod**: Adresář, Obchod.
 
 ### 4.2 Dashboard
-- **Adresář**: Seznam všech klientů s možností přidat, upravit nebo odstranit.
-  
+- **Rychlé přehledy**: Na dashboardu jsou zobrazeny klíčové statistiky a informace, jako například:
+  - **Kolik jsme vyfakturovali**: Celková částka vygenerovaných faktur.
+  - **Naplánované události na dnešek**: Zobrazení nadcházejících událostí a úkolů na aktuální den.
+  - **Probíhající obchodní případy**: Seznam obchodních případů, které jsou aktivní a čekají na vyřízení.
+  - **Faktury po splatnosti**: Přehled faktur, jejichž termín splatnosti uplynul.
+
 ### 4.3 Adresář
-- **Seznam klientů**: Zobrazuje fotku, jméno, příjmení, telefon, e-mail, společnost, datum přidání a status.
-- **Detail klienta**: Zobrazení základních informací o klientovi, poznámky a přehled všech obchodních případů, které jsou s tímto klientem spojeny.
+- **Seznam klientů**: Adresář zobrazuje informace o všech klientech, včetně:
+  - **Jméno a příjmení**.
+  - **E-mail**.
+  - **Fotka** (pokud je k dispozici).
+  - **Poznámky** (osobní nebo relevantní informace o klientovi).
+  - **Firma** (pokud je relevantní).
+  - **Obchodní případy připojené ke kontaktu**: Zobrazení všech obchodních případů, které jsou spojené s konkrétním klientem.
+
+### 4.4 Obchodní případy
+- **Seznam obchodních případu**: Každý obchodní případ obsahuje:
+  - **Název případu**: Stručný popis nebo název obchodní příležitosti.
+  - **Cena**: Stanovená cena pro daný obchodní případ.
+  - **Poznámka**: Další relevantní informace o obchodním případu.
+  - **Připojený kontakt**: Klient nebo osoba, která je s obchodním případem spojena.
+
+### 4.5 Kalendář
+- **Velký kalendář**: Zobrazení kalendáře, který je defaultně nastaven na měsíční zobrazení, kde se zobrazují všechny akce a obchodní případy. Každá událost obsahuje:
+  - **Název**: Krátký popis akce nebo obchodního případu.
+  - **Od kdy do kdy**: Časový rámec pro danou akci nebo událost.
+  - **Připojený případ či kontakt**: Pokud je akce propojena s obchodním případem nebo konkrétním kontaktem, bude tato informace uvedena.
+
+### 4.6 Fakturace
+- **Přehled faktur**: Zobrazení všech vygenerovaných faktur s aktuálním stavem. Stav faktur může být:
+  - **Zaplacené**: Faktury, které byly již uhrazeny.
+  - **Čekající**: Faktury, které čekají na úhradu.
+  - **Zrušené**: Faktury, které byly zrušeny.
+- **Možnost změny stavu faktur**: Uživatel může měnit stav faktur podle aktuální situace.
+- **Generování nové faktury**: Možnost vygenerovat novou fakturu na základě obchodního případu.
 
 ---
 
 ## 5. Přílohy
 
-### 5.1 API specifikace
-Specifikace API pro interakci s backendem a komunikaci mezi frontendem a backendem.
-
-### 5.2 Mockupy
+### 5.1 Mockupy
 Vizualizace uživatelského rozhraní ve formě wireframů a návrhů.
 
-### 5.3 Diagramy
+### 5.2 Diagramy
 UML diagramy pro znázornění vztahů mezi jednotlivými komponentami systému.
