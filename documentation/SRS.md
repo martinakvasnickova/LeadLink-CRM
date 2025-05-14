@@ -164,5 +164,7 @@ Popis konkrétních případů užití, jako je:
 ### 5.1 Mockupy
 Vizualizace uživatelského rozhraní ve formě wireframů a návrhů.
 
+https://www.figma.com/design/WqbHm3ER4OKU8BTMYH8GVi/LeadLink?node-id=247-498&t=skUW3MCewCADjHap-1
+
 ### 5.2 Diagramy
 UML diagramy pro znázornění vztahů mezi jednotlivými komponentami systému.
