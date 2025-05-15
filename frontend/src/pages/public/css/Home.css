@@ -1,5 +1,3 @@
-/*Page */
-
 .home{
     width: 100%;
     display: flex;
@@ -19,7 +17,6 @@
     padding: 20px 30px;
 }
 
-/*Viewport One - Intro */
 
 .one{
     height: 150vh;
@@ -55,7 +52,6 @@
     z-index: 0;
   }
   
-  /* Obsah nad pozadím */
   .col-one-one > * {
     position: relative;
     z-index: 1;
@@ -96,12 +92,6 @@
     background-repeat: no-repeat;
   }
 
-
-
-
-
-
-/*? */
 
 .viewport1{
     height: 40vh;

@@ -14,15 +14,15 @@ export default function AddEvent({ onSuccess }) {
     createdAt: "",
     startAt: "",
     endAt: "",
-    caseId: "" // <- přidáno caseId
+    caseId: "" 
   });
 
-  const [cases, setCases] = useState([]); // <- seznam případů
+  const [cases, setCases] = useState([]); 
 
   const { name, startAt, endAt, caseId } = event;
 
   useEffect(() => {
-    loadCases(); // načti seznam případů při otevření modalu
+    loadCases(); 
   }, []);
 
   const loadCases = async () => {

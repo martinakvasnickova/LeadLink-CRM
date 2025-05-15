@@ -19,17 +19,14 @@ export default function EditContact({ contact, refreshContacts }) {
     e.preventDefault();
     await axiosInstance.put(`http://localhost:8080/contact/${updatedContact.id}`, updatedContact);
     
-    // Zavřít modal
     const modalElement = document.getElementById('editContactModal');
     const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
     modal.hide();
 
-    // Ručně odstranit backdrop a 'modal-open' třídu
-    document.body.classList.remove('modal-open'); // odstraní modal-open
+    document.body.classList.remove('modal-open'); 
     const modalBackdrop = document.querySelector('.modal-backdrop');
-    if (modalBackdrop) modalBackdrop.remove(); // odstraní backdrop
+    if (modalBackdrop) modalBackdrop.remove(); 
 
-    // Spustit refresh v rodiči
     refreshContacts();
   };
 

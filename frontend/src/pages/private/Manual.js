@@ -96,10 +96,10 @@ export default function Manual() {
 
       <section className="mb-8">
         <h2 className="text-xl mb-2 mt-4">8. Časté dotazy (FAQ)</h2>
-        <p className="mb-2 font-medium">❓ Můžu vytvořit více faktur k jednomu případu?</p>
+        <p className="mb-2 font-medium">Můžu vytvořit více faktur k jednomu případu?</p>
         <p className="mb-4">Ano, ale doporučuje se evidovat je odděleně – např. rozdělením případu na etapy.</p>
 
-        <p className="mb-2 font-medium">❓ Je možné propojit více klientů k jednomu případu?</p>
+        <p className="mb-2 font-medium">Je možné propojit více klientů k jednomu případu?</p>
         <p>Ano, ale vždy je primárně zobrazen pouze jeden hlavní kontakt.</p>
       </section>
 

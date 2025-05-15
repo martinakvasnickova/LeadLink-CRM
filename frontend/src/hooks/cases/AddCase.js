@@ -14,7 +14,7 @@ export default function AddCase({ onSuccess }) {
     price: ""
   });
 
-  const [errors, setErrors] = useState({}); // <-- Přidáno pro zachytávání chyb
+  const [errors, setErrors] = useState({}); 
 
   const { name, price } = businessCase;
 
@@ -41,7 +41,7 @@ export default function AddCase({ onSuccess }) {
         price: ""
       });
 
-      setErrors({}); // Vymazat chyby po úspěšném odeslání
+      setErrors({}); 
 
       if (onSuccess) onSuccess();
 

@@ -27,24 +27,20 @@ export default function AddContact({ onSuccess }) {
     
       await axiosInstance.post('http://localhost:8080/contact', contact);
     
-      // Zavřít modal
       const modalElement = document.getElementById('addContactModal');
       const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
       modal.hide();
     
-      // Ručně odstranit backdrop a 'modal-open' třídu
-      document.body.classList.remove('modal-open'); // odstraní modal-open
+      document.body.classList.remove('modal-open'); 
       const modalBackdrop = document.querySelector('.modal-backdrop');
-      if (modalBackdrop) modalBackdrop.remove(); // odstraní backdrop
+      if (modalBackdrop) modalBackdrop.remove(); 
     
-      // Vymazat formulář
       setContact({
         firstname: "",
         lastname: "",
         email: ""
       });
     
-      // Spustit refresh v rodiči
       if (onSuccess) onSuccess();
     };
     
