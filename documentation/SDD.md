@@ -70,12 +70,10 @@
 ## 1. Úvod
 
 ### 1.1 Cíl dokumentu
-Tento dokument slouží jako návrhový základ pro vývoj systému LeadLink CRM – webové aplikace určené pro freelancery (OSVČ) ke správě obchodních případů, klientů, kalendáře a fakturace. Jeho cílem je popsat technický návrh systému a architekturu tak, aby vývojový tým měl jasné podklady pro implementaci.
-
-Dokument zahrnuje návrh softwarové architektury, komunikace mezi komponentami, návrh databáze, popis API, uživatelského rozhraní a bezpečnostních mechanismů. Zajišťuje konzistenci mezi požadavky uvedenými v SRS a jejich implementací.
+Tento dokument slouží jako návrhový pro vývoj LeadLink CRM – webové aplikace určené pro freelancery ke správě obchodních případů, klientů, kalendáře a fakturace. Jeho cílem je popsat technický návrh systému a architekturu. 
 
 ### 1.2 Rozsah systému
-Tento dokument pokrývá návrh všech hlavních částí systému LeadLink CRM, konkrétně:
+Dokument pokrývá návrh všech hlavních částí aplikace:
   - Frontendovou část: React aplikace, komponentová struktura a interakce s API.
   - Backendovou část: Aplikace postavená na Spring Boot, návrh REST API, business logika a bezpečnost.
   - Databázový model: Návrh tabulek, relací a datových struktur v PostgreSQL.
@@ -89,9 +87,9 @@ Tento dokument pokrývá návrh všech hlavních částí systému LeadLink CRM,
 
 ### 2.1 Architektura aplikace
 
-Aplikace **LeadLink CRM** je postavena na **monolitické architektuře**, kde všechny hlavní funkcionality (autentifikace, správa klientů, obchodních případů, kalendáře a fakturace) běží v rámci jednoho backendového serveru. Tato architektura byla zvolena pro svou jednoduchost, snadnější nasazení a menší složitost v rámci první verze systému.
+Aplikace **LeadLink CRM** je postavena na **monolitické architektuře**, kde všechny hlavní funkcionality (autentifikace, správa klientů, obchodních případů, kalendáře a fakturace) běží v rámci jednoho backendového serveru. 
 
-Monolit je rozdělen do modulárních vrstev (kontroléry, služby, repository), ale všechny běží ve stejném procesu. S frontendem aplikace komunikuje prostřednictvím REST API.
+Monolit je rozdělen do vrstev (kontroléry, služby, repository), ale všechny běží ve stejném procesu. S frontendem aplikace komunikuje prostřednictvím REST API.
 
 ![image](https://github.com/user-attachments/assets/9e437c24-40d6-4fcb-bff1-eb1d41edf75a)
 
@@ -328,57 +326,6 @@ Systém **LeadLink CRM** používá relační databázi **PostgreSQL**. Databáz
 - `case_id` (int, FK → cases.id)
 - `contact_id` (int, FK → contact.id)
 - `user_id` (int, FK → users.id)
-
----
-
-## 5. Návrh uživatelského rozhraní (UI)
-
-### 5.1 Struktura a komponenty UI
-
-Uživatelské rozhraní aplikace **LeadLink CRM** je navrženo jako moderní webová aplikace s přístupem k jednotlivým sekcím pomocí levého postranního navigačního panelu (sidebar) a horní lišty (topbar).
-
-#### Hlavní komponenty:
-
-- **Sidebar (levý panel)**:
-  - Nástěnka (Dashboard)
-  - Kalendář
-  - Adresář (kontakty)
-  - Případy (obchodní příležitosti)
-  - Fakturace
-  - Tlačítko Podpora (plovoucí dolní modré tlačítko)
-
-- **Topbar (horní lišta)**:
-  - Vyhledávací pole pro hledání kontaktů
-  - Ikona nastavení
-  - Ikona oznámení
-  - Tlačítko "Odhlášení"
-
-- **Dashboard**:
-  - Bloky s přehledem:
-    - Příjmy tento měsíc
-    - Počet klientů
-    - Počet faktur
-  - Dnešní události
-  - Seznam obchodních případů
-  - Nezaplacené faktury
-
-- **Kalendář**:
-  - Měsíční / týdenní / denní náhled
-  - Zobrazení naplánovaných událostí
-  - Tlačítko pro přidání nové události
-
-- **Adresář**:
-  - Tabulka kontaktů se jménem, příjmením, e-mailem
-  - Ikona pro mazání nebo úpravu kontaktu
-
-- **Případy**:
-  - Tabulka obchodních případů: název, cena, kontakt
-  - Možnost mazat, upravovat, propojovat kontakty
-
-- **Fakturace**:
-  - Tabulka faktur s číslem, popisem, částkou, klientem, stavem
-  - Vyskakovací modální okno pro generování faktury
-  - Možnost změnit stav (vydaná, zaplacená, zrušená)
 
 ---
 
