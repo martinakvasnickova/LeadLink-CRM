@@ -8,9 +8,9 @@ Projekt je rozdělen do několika částí:
 
 ```
 .
-├── backend/         # Backendová aplikace (Spring Boot)
-├── frontend/        # Frontendová aplikace (React)
-├── database/        # SQL dumpy, migrace, zálohy
+├── backend/         # Backend(Spring Boot)
+├── frontend/        # Frontend (React)
+├── database/        # Vytvoření databáze, test
 ├── documentation/   # Technická dokumentace (SRS, SDD)
 ├── manual/          # Uživatelské a administrátorské příručky
 └── README.md        # Tento soubor
