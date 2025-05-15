@@ -1,5 +1,47 @@
 # Software Requirements Specification (SRS)
 
+# Obsah dokumentu
+
+## 1. Úvod
+- 1.1 Název projektu
+- 1.2 Cíl systému
+- 1.3 Rozsah projektu
+  - Funkce v první verzi
+  - Funkce mimo rozsah první verze
+- 1.4 Odkazy na další dokumenty
+
+## 2. Obecný popis
+- 2.1 Přehled systému a jeho kontext
+- 2.2 Přehled uživatelů
+  - Role: Freelancer (User)
+  - Role: Administrátor (Admin)
+- 2.3 Předpoklady a omezení
+
+## 3. Funkční požadavky
+- 3.1 Podrobně popsané funkcionality
+  - Registrace a přihlášení
+  - Správa klientů
+  - Správa obchodních příležitostí
+  - Kalendář
+  - Generování faktur
+- 3.2 Případy užití (Use Cases)
+
+## 4. UX & UI
+- 4.1 Hlavní komponenty UI
+  - Navigace (public/private)
+  - Aside navigace
+- 4.2 Dashboard
+- 4.3 Adresář
+- 4.4 Obchodní případy
+- 4.5 Kalendář
+- 4.6 Fakturace
+
+## 5. Přílohy
+- 5.1 Mockupy
+- 5.2 Diagramy
+
+---
+
 ## 1. Úvod
 
 ### 1.1 Název projektu
