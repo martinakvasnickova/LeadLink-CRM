@@ -22,7 +22,6 @@ Projekt je rozdělen do několika částí:
 - Node.js 
 - PostgreSQL
 - Maven
-- Docker (volitelně pro databázi)
 
 ## Rychlý start
 
