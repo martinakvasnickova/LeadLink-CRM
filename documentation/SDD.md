@@ -267,10 +267,121 @@ Systém **LeadLink CRM** používá relační databázi **PostgreSQL**. Databáz
 ## 5. Návrh uživatelského rozhraní (UI)
 
 ### 5.1 Struktura a komponenty UI
-Popis hlavních komponent uživatelského rozhraní, jaké budou sekce, jaké funkce budou implementovány a jaké interakce jsou očekávány.
+
+Uživatelské rozhraní aplikace **LeadLink CRM** je navrženo jako moderní webová aplikace s přístupem k jednotlivým sekcím pomocí levého postranního navigačního panelu (sidebar) a horní lišty (topbar).
+
+#### Hlavní komponenty:
+
+- **Sidebar (levý panel)**:
+  - Nástěnka (Dashboard)
+  - Kalendář
+  - Adresář (kontakty)
+  - Případy (obchodní příležitosti)
+  - Fakturace
+  - Tlačítko Podpora (plovoucí dolní modré tlačítko)
+
+- **Topbar (horní lišta)**:
+  - Vyhledávací pole pro hledání kontaktů
+  - Ikona nastavení
+  - Ikona oznámení
+  - Tlačítko "Odhlášení"
+
+- **Dashboard**:
+  - Bloky s přehledem:
+    - Příjmy tento měsíc
+    - Počet klientů
+    - Počet faktur
+  - Dnešní události
+  - Seznam obchodních případů
+  - Nezaplacené faktury
+
+- **Kalendář**:
+  - Měsíční / týdenní / denní náhled
+  - Zobrazení naplánovaných událostí
+  - Tlačítko pro přidání nové události
+
+- **Adresář**:
+  - Tabulka kontaktů se jménem, příjmením, e-mailem
+  - Ikona pro mazání nebo úpravu kontaktu
+
+- **Případy**:
+  - Tabulka obchodních případů: název, cena, kontakt
+  - Možnost mazat, upravovat, propojovat kontakty
+
+- **Fakturace**:
+  - Tabulka faktur s číslem, popisem, částkou, klientem, stavem
+  - Vyskakovací modální okno pro generování faktury
+  - Možnost změnit stav (vydaná, zaplacená, zrušená)
+
+---
+
+## 5. Návrh uživatelského rozhraní (UI)
+
+### 5.1 Struktura a komponenty UI
+
+Uživatelské rozhraní aplikace **LeadLink CRM** je navrženo jako moderní webová aplikace s přístupem k jednotlivým sekcím pomocí levého postranního navigačního panelu (sidebar) a horní lišty (topbar).
+
+#### Hlavní komponenty:
+
+- **Sidebar (levý panel)**:
+  - Nástěnka (Dashboard)
+  - Kalendář
+  - Adresář (kontakty)
+  - Případy (obchodní příležitosti)
+  - Fakturace
+  - Tlačítko Podpora (plovoucí dolní fialové tlačítko)
+
+- **Topbar (horní lišta)**:
+  - Vyhledávací pole pro hledání kontaktů
+  - Ikona nastavení
+  - Ikona oznámení
+  - Tlačítko "Odhlášení"
+
+- **Dashboard**:
+  - Bloky s přehledem:
+    - Příjmy tento měsíc
+    - Počet klientů
+    - Počet faktur
+  - Dnešní události
+  - Seznam obchodních případů
+  - Nezaplacené faktury
+
+- **Kalendář**:
+  - Měsíční / týdenní / denní náhled
+  - Zobrazení naplánovaných událostí
+  - Tlačítko pro přidání nové události
+
+- **Adresář**:
+  - Tabulka kontaktů se jménem, příjmením, e-mailem
+  - Ikona pro mazání nebo úpravu kontaktu
+
+- **Případy**:
+  - Tabulka obchodních případů: název, cena, kontakt
+  - Možnost mazat, upravovat, propojovat kontakty
+
+- **Fakturace**:
+  - Tabulka faktur s číslem, popisem, částkou, klientem, stavem
+  - Vyskakovací modální okno pro generování faktury
+  - Možnost změnit stav (vydaná, zaplacená, zrušená)
 
 ### 5.2 UX Design
-Podrobný popis uživatelského zážitku, jak by mělo uživatelské rozhraní vypadat a jak by mělo fungovat. Může to zahrnovat diagramy nebo mockupy.
+
+Uživatelský zážitek (UX) je postaven na jednoduchosti, konzistenci a rychlé dostupnosti informací.
+
+#### Designové principy:
+- **Minimalistický vzhled** s přívětivým kontrastem barev (světle šedé pozadí, tmavé texty, akční prvky v modré)
+- **Jednoduché a jasné ikony** (např. v menu nebo pro akce jako mazání)
+- **Zachování konzistence mezi sekcemi** – stejná struktura tabulek, vyhledávání, řazení
+
+#### Interakce:
+- **Plynulé přechody mezi sekcemi** pomocí routeru
+- **Modální okna** pro zadávání dat bez nutnosti opouštět hlavní kontext (např. generování faktury)
+- **Responsivita** – layout je optimalizovaný i pro menší obrazovky (např. tablety)
+- **Validace vstupů** u formulářů (např. datum, číslo faktury, vyplnění povinných polí)
+
+#### Mockupy:
+
+https://www.figma.com/design/WqbHm3ER4OKU8BTMYH8GVi/LeadLink?node-id=247-498&t=zFMjrBlKvRDNauAK-1
 
 ---
 
