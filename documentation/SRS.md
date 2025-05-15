@@ -1,8 +1,8 @@
 # Software Requirements Specification (SRS)
 
-# Obsah dokumentu
+## Obsah dokumentu
 
-## 1. Úvod
+#### 1. Úvod
 - 1.1 Název projektu
 - 1.2 Cíl systému
 - 1.3 Rozsah projektu
@@ -10,7 +10,7 @@
   - Funkce mimo rozsah první verze
 - 1.4 Odkazy na další dokumenty
 
-## 2. Obecný popis
+#### 2. Obecný popis
 - 2.1 Přehled systému a jeho kontext
 - 2.2 Přehled uživatelů
   - Role: Freelancer (User)
@@ -18,7 +18,7 @@
 - 2.3 Předpoklady a omezení
 - 2.4 Diagram tříd (UML Class Diagram)
 
-## 3. Funkční požadavky
+#### 3. Funkční požadavky
 - 3.1 Podrobně popsané funkcionality
   - Registrace a přihlášení
   - Správa klientů
@@ -31,7 +31,7 @@
   -   Změna stavu faktury
 - 3.3 Use Case Diagram
 
-## 4. UX & UI
+#### 4. UX & UI
 - 4.1 Hlavní komponenty UI
   - Navigace (public/private)
   - Aside navigace
@@ -41,7 +41,7 @@
 - 4.5 Kalendář
 - 4.6 Fakturace
 
-## 5. Přílohy
+#### 5. Přílohy
 - 5.1 Mockupy
 - 5.2 Diagramy
 
@@ -53,7 +53,7 @@
 **LeadLink CRM** – Jednoduchý CRM systém pro freelancery
 
 ### 1.2 Cíl systému
-Cílem systému **LeadLink CRM** je poskytnout jednoduché a efektivní řešení pro správu obchodních případu, kontaktů a kalendáře pro freelancery (OSVČ). Aplikace usnadňuje organizaci každodenní práce tím, že centralizuje a propojuje různé aspekty obchodních procesů do jednoho integrovaného systému.
+Cílem aplikace **LeadLink** je poskytnout jednoduché a efektivní řešení pro správu obchodních případu, kontaktů a kalendáře pro freelancery. Aplikace usnadňuje organizaci každodenní práce tím, že centralizuje a propojuje různé aspekty obchodních procesů do jednoho systému.
 
 Systém umožní:
 - **Založení uživatelského účtu** pro jednotlivé freelancery.
@@ -73,7 +73,7 @@ Tento projekt pokrývá vývoj webové aplikace s následujícím rozsahem funkc
 
 **Funkce mimo rozsah první verze:**
 - Automatické notifikace (upozornění na follow-upy, termíny atd.).
-- Kontaktní hlášení (exporty a analýzy).
+- Exporty a analýzy.
 
 ### 1.4 Odkazy na další dokumenty
 - **Software Design Document (SDD)** – Další podrobnosti o návrhu a architektuře systému.
@@ -83,7 +83,7 @@ Tento projekt pokrývá vývoj webové aplikace s následujícím rozsahem funkc
 ## 2. Obecný popis
 
 ### 2.1 Přehled systému a jeho kontext
-**LeadLink CRM** je webová aplikace, která slouží k efektivní správě klientů, obchodních případů a kalendáře pro freelancery (OSVČ). Aplikace pomáhá uživatelům:
+**LeadLink CRM** je webová aplikace, která slouží k efektivní správě klientů, obchodních případů a kalendáře pro freelancery. Aplikace pomáhá uživatelům:
 - Uchovávat a spravovat kontaktní informace o klientech.
 - Vést propojený kalendář s obchodními případy.
 - Generovat faktury na základě obchodních případu, což usnadňuje fakturaci.
@@ -95,7 +95,7 @@ Tento projekt pokrývá vývoj webové aplikace s následujícím rozsahem funkc
 - Usnadňuje a automatizuje generování faktur.
 
 ### 2.2 Přehled uživatelů
-Aplikace **LeadLink CRM** je určena především pro freelancery (OSVČ), kteří potřebují efektivně spravovat své obchodní případy a komunikaci s klienty.
+Aplikace **LeadLink CRM** je určena především pro freelancery, kteří potřebují efektivně spravovat své obchodní případy a komunikaci s klienty.
 
 **Hlavní role:**
 - **User (Freelancer)**: 
