@@ -53,7 +53,7 @@
 **LeadLink CRM** – Jednoduchý CRM systém pro freelancery
 
 ### 1.2 Cíl systému
-Cílem aplikace **LeadLink** je poskytnout jednoduché a efektivní řešení pro správu obchodních případu, kontaktů a kalendáře pro freelancery. Aplikace usnadňuje organizaci každodenní práce tím, že centralizuje a propojuje různé aspekty obchodních procesů do jednoho systému.
+Cílem aplikace **LeadLink** je poskytnout jednoduché a efektivní řešení pro správu obchodních případu, kontaktů a kalendáře pro freelancery. Aplikace usnadňuje organizaci každodenní práce tím, že spojuje různé aspekty obchodních procesů do jednoho systému.
 
 Systém umožní:
 - **Založení uživatelského účtu** pro jednotlivé freelancery.
