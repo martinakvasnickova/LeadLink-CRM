@@ -16,6 +16,7 @@
   - Role: Freelancer (User)
   - Role: Administrátor (Admin)
 - 2.3 Předpoklady a omezení
+- 2.4 Diagram tříd (UML Class Diagram)
 
 ## 3. Funkční požadavky
 - 3.1 Podrobně popsané funkcionality
@@ -24,7 +25,11 @@
   - Správa obchodních příležitostí
   - Kalendář
   - Generování faktur
-- 3.2 Případy užití (Use Cases)
+- 3.2 Scénáře
+  -   Plánování obchodního případu do kalendáře
+  -   Generování faktury z obchodního případu
+  -   Změna stavu faktury
+- 3.3 Use Case Diagram
 
 ## 4. UX & UI
 - 4.1 Hlavní komponenty UI
@@ -110,6 +115,15 @@ Aplikace **LeadLink CRM** je určena především pro freelancery (OSVČ), kteř
 - **Frontend**: React.
 - **Databáze**: PostgreSQL.
 
+### 2.4 Diagram tříd (UML Class Diagram)
+
+Následující UML třídní diagram poskytuje logický pohled na hlavní entity systému LeadLink CRM a jejich vztahy. Slouží k pochopení struktury dat bez vazby na konkrétní technologii nebo databázovou implementaci.
+
+Diagram znázorňuje klíčové entity jako jsou **Uživatel**, **Klient**, **Obchodní případ**, **Faktura** a **Kalendářní událost**, a popisuje, jak spolu tyto entity souvisejí. Vztahy mezi třídami odrážejí základní obchodní logiku systému – například že obchodní případ je přiřazen ke konkrétnímu klientovi a může být propojen s kalendářní událostí nebo fakturou.
+
+![image](https://github.com/user-attachments/assets/4e9340b0-5976-48ee-9ed8-f53792245c47)
+
+
 ---
 
 ## 3. Funkční požadavky
@@ -137,12 +151,74 @@ Aplikace **LeadLink CRM** je určena především pro freelancery (OSVČ), kteř
   - Uživatel může generovat faktury na základě obchodních případů.
   - Faktura se automaticky vyplní informacemi o klientovi, pokud je obchodní případ správně propojen s klientem.
 
-### 3.2 Případy užití (Use Cases)
-Popis konkrétních případů užití, jako je:
-- Registrace nového uživatele.
-- Vytváření obchodního případu.
-- Generování faktury.
-  
+### 3.2 Scénáře
+
+#### 3.2.1 Plánování obchodního případu do kalendáře
+
+- **Název**: Plánování obchodního případu  
+- **Aktér**: Freelancer  
+- **Předpoklad**: Uživatel má vytvořený klientský kontakt  
+
+**Hlavní scénář**:
+1. Uživatel vytvoří nový obchodní případ a přiřadí jej ke klientovi.
+2. Otevře kalendář a klikne na vybraný termín.
+3. Vybere typ akce "Obchodní případ", přiřadí konkrétní případ.
+4. Přidá poznámku a časové rozmezí.
+5. Potvrdí akci.
+
+**Výsledek**: Obchodní případ je zobrazen v kalendáři jako naplánovaná událost.
+
+#### 3.2.2 Generování faktury z obchodního případu
+
+- **Název**: Generování faktury  
+- **Aktér**: Freelancer  
+- **Předpoklad**: Existuje obchodní případ, který má připojeného klienta a hodnotu  
+
+**Hlavní scénář**:
+1. Uživatel přejde do detailu obchodního případu.
+2. Klikne na možnost "Vygenerovat fakturu".
+3. Systém automaticky předvyplní údaje klienta a hodnotu případu.
+4. Uživatel případně upraví data (např. datum splatnosti).
+5. Potvrdí vytvoření faktury.
+
+**Výsledek**: Nová faktura je vytvořena a zařazena do seznamu faktur.
+
+#### 3.2.3 Změna stavu faktury
+
+- **Název**: Změna stavu faktury  
+- **Aktér**: Freelancer  
+- **Předpoklad**: Existuje alespoň jedna vygenerovaná faktura  
+
+**Hlavní scénář**:
+1. Uživatel otevře sekci „Faktury“.
+2. Vyhledá konkrétní fakturu podle klienta nebo data.
+3. Klikne na „Změnit stav“ a vybere jednu z možností:
+   - Zaplacená
+   - Čekající
+   - Zrušená
+4. Potvrdí změnu.
+
+**Výsledek**: Nový stav faktury je uložen a zobrazen v přehledu.
+
+#### Zobrazení historie obchodních případů klienta
+
+- **Název**: Historie případů klienta  
+- **Aktér**: Freelancer  
+- **Předpoklad**: Klient má přiřazeno více obchodních případů  
+
+**Hlavní scénář**:
+1. Uživatel otevře adresář klientů.
+2. Klikne na konkrétního klienta.
+3. V detailu klienta se zobrazí seznam všech historických i aktivních obchodních případů.
+4. Uživatel může zobrazit detail konkrétního případu.
+
+**Výsledek**: Uživatel získá přehled o všech interakcích a případech spojených s klientem.
+
+
+### 3.3 Use Case Diagram
+![image](https://github.com/user-attachments/assets/a454986d-1f29-44fb-8a42-1035d928a8da)
+
+
 ---
 
 ## 4. UX & UI
