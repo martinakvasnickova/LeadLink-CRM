@@ -456,7 +456,7 @@ public enum Role {
 
 - Konfigurace bezpečnosti je řešena pomocí třídy `SecurityConfig`.
 - Používá se `BCryptPasswordEncoder` pro šifrování hesel.
-- Autentizace je spravována filtrem `JwtAuthFilter`, který je zaregistrován **před** standardní autentifikační logikou (`UsernamePasswordAuthenticationFilter`).
+- Autentizace je spravována filtrem `JwtAuthFilter`, kterým požadavek projde **před** standardní autentizační logikou (`UsernamePasswordAuthenticationFilter`).
 
 ---
 
