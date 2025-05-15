@@ -1,5 +1,72 @@
 # Software Design Document (SDD)
 
+## Osnova:
+
+#### 1. Úvod
+- 1.1 Cíl dokumentu
+- 1.2 Rozsah systému
+
+#### 2. Architektura systému
+- 2.1 Architektura aplikace
+- 2.2 Komponenty systému
+  - Frontend (React)
+  - Backend (Spring Boot)
+  - Databáze (PostgreSQL)
+  - API komunikace
+- 2.3 Komunikace mezi komponentami
+- 2.4 Struktura projektu (složková / balíčková)
+
+#### 3. API specifikace
+- 3.1 Úvod do API
+- 3.2 API endpointy
+  - Uživatelé
+  - Obchodní případy (Cases)
+  - Kontakty (Contacts)
+  - Události (Events)
+  - Faktury (Invoices)
+  - Propojení (Case-Event, Contact-Case, Contact-Event)
+- 3.3 Odkaz na Swagger dokumentaci
+
+#### 4. Databázový design
+- 4.1 Databázová architektura
+- 4.2 ER diagram
+- 4.3 Popis tabulek
+  - users
+  - cases
+  - contact
+  - contact_case
+  - events
+  - case_event
+  - contact_event
+  - invoice
+
+#### 5. Návrh uživatelského rozhraní (UI)
+- 5.1 Struktura a komponenty UI
+  - Sidebar
+  - Topbar
+  - Dashboard
+  - Kalendář
+  - Adresář
+  - Případy
+  - Fakturace
+- 5.2 UX Design
+  - Principy a interakce
+  - Responsivita
+  - Validace vstupů
+  - Odkaz na mockupy
+
+#### 6. Zabezpečení
+- 6.1 Autentizace a autorizace
+  - JWT autentizace
+  - Role-based access control
+  - Průběh autentizace
+- 6.2 Zabezpečení aplikace pomocí Spring Security
+
+#### 7. Logování a monitoring
+- 7.1 Logování (SLF4J, Logger)
+- 7.2 Monitoring (Spring Boot Actuator)
+
+
 ## 1. Úvod
 
 ### 1.1 Cíl dokumentu
