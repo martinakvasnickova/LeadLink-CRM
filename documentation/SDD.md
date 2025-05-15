@@ -26,9 +26,8 @@ Aplikace **LeadLink CRM** je postavena na **monolitické architektuře**, kde v�
 
 Monolit je rozdělen do modulárních vrstev (kontroléry, služby, repository), ale všechny běží ve stejném procesu. S frontendem aplikace komunikuje prostřednictvím REST API.
 
-**Doporučený diagram**:
-- **Component Diagram** – znázorňující vztah mezi frontendem, backendem a databází.
-- Alternativně jednoduchý **Deployment Diagram**, pokud chceš vizualizovat i provozní prostředí (např. server, porty, připojení).
+![image](https://github.com/user-attachments/assets/9e437c24-40d6-4fcb-bff1-eb1d41edf75a)
+
 
 
 ### 2.2 Komponenty systému
@@ -66,6 +65,9 @@ Všechny komponenty komunikují **přes REST API** vystavené backendem:
 - Backend vrací odpovědi ve formátu JSON.
 - JWT token je odesílán v hlavičce každého požadavku pro ověření oprávnění.
 
+![image](https://github.com/user-attachments/assets/ccdc60ab-a40a-491f-adbe-ab6106edd9dd)
+
+
 ---
 
 ## 3. API specifikace
@@ -73,29 +75,141 @@ Všechny komponenty komunikují **přes REST API** vystavené backendem:
 ### 3.1 Úvod do API
 Tato sekce popisuje API pro komunikaci mezi frontendem (React) a backendem (Spring Boot). API je založeno na RESTful architektuře a používá HTTP metody pro interakci s databází.
 
-#### 1. Konfigurace a přístup k API
+#### Konfigurace a přístup k API
 
 - **Backend**: Aplikace běží na portu `8080` na adrese `http://localhost:8080/`.
 - **Frontend**: Aplikace běží na portu `3000` na adrese `http://localhost:3000/`.
 - Pro umožnění komunikace mezi frontendem a backendem běžícím na různých portech je nutné mít nakonfigurovaný **CORS** (Cross-Origin Resource Sharing) na backendu.
 
 ### 3.2 API Endpoints
-Podrobný popis jednotlivých API endpointů, včetně metod (GET, POST, PUT, DELETE), popisu požadavků a odpovědí, formátu dat, status kódů atd.
+Níže je uveden přehled hlavních REST API endpointů systému LeadLink CRM. Endpointy pokrývají práci s uživateli, klienty, obchodními případy, kalendářními událostmi, fakturami a jejich propojením.
 
-#### Příklad:
-- **POST /api/auth/register**
-  - Popis: Registrace nového uživatele.
-  - Parametry:
-    ```json
-    { "email": "user@example.com", "password": "password123" }
-    ```
-  - Odpověď:
-    ```json
-    { "message": "Registration successful" }
-    ```
+#### Uživatelé
 
-### 3.3 Autentifikace a autorizace
-Popis mechanismu autentifikace (např. JWT) a autorizace, jak budou uživatelé identifikováni a jaké role (admin, uživatel) budou podporovány.
+- **POST /user/register** – Registrace uživatele
+- **POST /user/register-admin** – Registrace administrátora
+- **POST /user/login** – Přihlášení a získání JWT tokenu
+
+#### Obchodní případy (Cases)
+
+- **GET /case** – Získat všechny obchodní případy
+- **GET /case/{id}** – Získat konkrétní případ podle ID
+- **POST /case** – Vytvořit nový případ
+- **PUT /case/{id}** – Upravit existující případ
+- **DELETE /case/{id}** – Smazat případ
+- **GET /case/user** – Získat případy aktuálně přihlášeného uživatele
+
+#### Kontakty (Contacts)
+
+- **GET /contact** – Získat všechny kontakty
+- **GET /contact/{id}** – Získat kontakt podle ID
+- **POST /contact** – Vytvořit nový kontakt
+- **PUT /contact/{id}** – Upravit kontakt
+- **DELETE /contact/{id}** – Smazat kontakt
+- **GET /contact/user** – Získat kontakty aktuálního uživatele
+
+#### Kalendářní události (Events)
+
+- **GET /event** – Získat všechny události
+- **GET /event/{id}** – Získat událost podle ID
+- **POST /event** – Vytvořit novou událost
+- **PUT /event/{id}** – Upravit událost
+- **DELETE /event/{id}** – Smazat událost
+- **GET /event/user** – Získat události přihlášeného uživatele
+
+#### Faktury (Invoices)
+
+- **GET /invoice** – Získat všechny faktury
+- **GET /invoice/{id}** – Získat fakturu podle ID
+- **POST /invoice** – Vytvořit fakturu na základě případu
+- **PUT /invoice/{id}** – Upravit fakturu
+- **DELETE /invoice/{id}** – Smazat fakturu
+- **GET /invoice/user** – Získat faktury přihlášeného uživatele
+- **GET /invoice/pre-fill?caseId=ID** – Načíst předvyplněná data pro případ
+- **GET /invoice/{id}/pdf** – Stáhnout PDF faktury
+
+#### Propojení: Případy & Události (Case-Event)
+
+- **GET /case-event** – Získat všechna propojení
+- **POST /case-event** – Vytvořit propojení
+- **DELETE /case-event/{id}** – Smazat propojení
+- **GET /case-event/case/{caseId}** – Získat události podle případu
+- **GET /case-event/event/{eventId}** – Získat případy podle události
+
+#### Propojení: Kontakty & Případy (Contact-Case)
+
+- **GET /contact-case** – Získat všechna propojení
+- **POST /contact-case** – Vytvořit propojení
+- **DELETE /contact-case/{id}** – Smazat propojení
+- **GET /contact-case/contact/{contactId}** – Získat případy dle kontaktu
+- **GET /contact-case/case/{caseId}** – Získat kontakty dle případu
+
+#### Propojení: Kontakty & Události (Contact-Event)
+
+- **GET /contact-event** – Získat všechna propojení
+- **POST /contact-event** – Vytvořit propojení
+- **DELETE /contact-event/{id}** – Smazat propojení
+- **GET /contact-event/contact/{contactId}** – Získat události dle kontaktu
+- **GET /contact-event/event/{eventId}** – Získat kontakty dle události
+
+
+### 3.3 Autentizace a autorizace
+Systém **LeadLink CRM** využívá ke správě přístupu k chráněným zdrojům **autentizaci pomocí JWT (JSON Web Token)** a **autorizaci na základě rolí uživatelů**.
+
+#### 3.3.1 Průběh:
+
+1. **Uživatel odešle přihlašovací požadavek** na endpoint `POST /user/login` s `username` a `password`.
+2. Backend pomocí služby `UserService` ověří přihlašovací údaje.
+3. Pokud je ověření úspěšné, vygeneruje se **JWT token** pomocí třídy `JwtService`. Token obsahuje:
+   - `sub` (uživatelské jméno),
+   - `exp` (datum expirace – 1 hodina),
+   - `role` (např. `"ROLE_USER"` nebo `"ROLE_ADMIN"`).
+4. Tento token je vrácen klientovi jako součást objektu `JwtResponse`.
+5. Klient pak token posílá v hlavičce každého chráněného požadavku:
+
+```
+Authorization: Bearer <JWT>
+```
+
+#### 3.3.2 Zpracování tokenu:
+- Token je při každém požadavku zkontrolován filtrem `JwtAuthFilter`, který:
+  - extrahuje JWT z hlavičky,
+  - ověří jeho platnost (`JwtService.isTokenValid()`),
+  - extrahuje `username` a roli,
+  - nastaví ověřeného uživatele do `SecurityContext`.
+
+
+#### 3.3.3 Autorizace (Role-based access control)
+
+Systém definuje dvě hlavní role uživatelů pomocí výčtového typu `Role`:
+
+```java
+public enum Role {
+    USER,
+    ADMIN
+}
+```
+
+#### 3.3.4 Role a oprávnění:
+
+- `USER` (běžný uživatel):
+  - může spravovat vlastní klienty, případy, události, faktury,
+  - nemá přístup k administrativním funkcím.
+
+- `ADMIN`:
+  - má navíc přístup k administrativním endpointům (např. `/admin/**`, `/user/register-admin`),
+  - je omezen přes Spring Security konfiguraci:
+
+```java
+.requestMatchers("/admin/**", "/user/register-admin").hasRole("ADMIN")
+```
+
+#### 3.3.5 Zabezpečení aplikace (Spring Security)
+
+- Konfigurace bezpečnosti je řešena pomocí třídy `SecurityConfig`.
+- Používá se `BCryptPasswordEncoder` pro šifrování hesel.
+- Autentizace je spravována filtrem `JwtAuthFilter`, který je zaregistrován **před** standardní autentifikační logikou (`UsernamePasswordAuthenticationFilter`).
+
 
 ---
 
@@ -140,34 +254,11 @@ Popis, jak budou citlivé informace (např. hesla) šifrovány, jaké šifrovac�
 
 ## 7. Výkon a škálovatelnost
 
-### 7.1 Požadavky na výkon
-Specifikace požadavků na výkon systému, například jaké maximální latence a doby odezvy by měly být dosaženy.
+### 7.1 Monitorování
+Aplikace je monitorována 
 
 ### 7.2 Škálovatelnost
 Jak bude systém navržen, aby zvládal rostoucí počet uživatelů, dat a požadavků. Zde můžete specifikovat horizontální a vertikální škálování.
-
----
-
-## 8. Testování
-
-### 8.1 Testování API
-Jaké testy budou prováděny na API, včetně unit testů, integračních testů a testů výkonu.
-
-### 8.2 Testování UI
-Jaké testy budou prováděny na uživatelském rozhraní, včetně testování použitelnosti a funkčnosti.
-
-### 8.3 Testovací prostředí
-Popis prostředí, ve kterém budou testy prováděny (např. vývojové prostředí, staging, produkce).
-
----
-
-## 9. Nasazení
-
-### 9.1 Nasazovací pipeline
-Popis procesu nasazení, jakým způsobem bude aplikace nasazována na produkční server (CI/CD pipeline).
-
-### 9.2 Provozní prostředí
-Popis prostředí, ve kterém bude aplikace běžet (serverová infrastruktura, databázová infrastruktura, apod.).
 
 ---
 
