@@ -1,71 +1,72 @@
-# LeadLink Backend - Dokumentace k modulům Users, Security a Cases
+# LeadLink CRM
 
-## Popis projektu a cíle práce
+**LeadLink CRM** je jednoduchý CRM systém navržený speciálně pro freelancery (OSVČ). Umožňuje správu klientů, obchodních případů, kalendáře a generování faktur.
 
-LeadLink je aplikace zaměřená na správu obchodních případů a kontaktů, včetně přidělování případů k uživatelům. Cílem bylo vytvořit bezpečný a škálovatelný backend, který umožní správu uživatelů, autentizaci, autorizaci a správu obchodních případů pomocí REST API.
+## Struktura projektu
 
-## Architektura systému
-
-- **Controller vrstva**: Zpracovává HTTP požadavky a vrací odpovědi. (UserController, CaseController)
-- **Service vrstva**: Obsahuje business logiku a interaguje s repository vrstvou. (UserService, CaseService)
-- **Repository vrstva**: Pracuje s databází pomocí Spring Data JPA. (UserRepository, CaseRepository)
-- **Security vrstva**: Řeší autentizaci a autorizaci uživatelů (JWT, Spring Security).
-- **Model/DTO**: Definuje entity (`Users`, `Cases`) a přenosové objekty (`UserRequestDTO`, `CaseDTO`).
-- **Exception handling**: Globální zpracování chyb pomocí `GlobalExceptionHandler`.
-
-## Popis implementovaných bezpečnostních mechanismů
-
-- **JWT autentizace**: Každé přihlášení generuje token, který musí být přiložen v HTTP Authorization hlavičce (`Bearer token`) pro přístup k chráněným endpointům.
-- **Role-based autorizace**: Přístup k určitým endpointům (např. `/admin/**`) je omezen pouze na uživatele s rolí `ADMIN`.
-- **Hashování hesel**: Hesla uživatelů jsou ukládána bezpečně pomocí algoritmu BCrypt.
-- **Filtr JWT** (`JwtAuthFilter`) validuje token před zpracováním požadavků.
-
-## Ukázky validace a zpětné vazby API
-
-Příklad validace registrace uživatele (`UserRequestDTO`):
-
-- **Pravidla**:
-  - `firstname`, `lastname`, `email`, `username` musí být neprázdné (`@NotBlank`).
-  - `email` musí být ve správném formátu (`@Email`).
-  - `password` musí mít minimálně 6 znaků (`@Size(min = 6)`).
-
-- **Chybová odpověď na špatné údaje**:
-```json
-{
-  "status": 400,
-  "message": "Validation error",
-  "errors": {
-    "password": "Password must have at least 6 characters",
-    "email": "Email must be valid"
-  }
-}
-```
-
-- **Chybová odpověď při neexistujícím uživateli:**
-
-```json
-{
-  "status": 404,
-  "message": "Could not found user with id 123",
-  "data": null,
-  "errors": null
-}
+Projekt je rozdělen do několika částí:
 
 ```
+.
+├── backend/         # Backendová aplikace (Spring Boot)
+├── frontend/        # Frontendová aplikace (React)
+├── database/        # SQL dumpy, migrace, zálohy
+├── documentation/   # Technická dokumentace (SRS, SDD)
+├── manual/          # Uživatelské a administrátorské příručky
+└── README.md        # Tento soubor
+```
 
-## Informace o logování a monitoringu
+## Požadavky
 
-### Logování
+- Java 
+- Node.js 
+- PostgreSQL
+- Maven
+- Docker (volitelně pro databázi)
 
-- Přihlášení, registrace, vytvoření, mazání a editace případů i uživatelů jsou logovány pomocí SLF4J (Logger).
-- Chyby validace, neočekávané výjimky a chyby přístupu jsou logovány s úrovní WARN nebo ERROR.
+## Rychlý start
 
-### Monitoring
+### Backend
 
-- Projekt obsahuje základy pro Spring Boot Actuator (endpoint `/actuator/metrics`).
-- Možné snadno doplnit Health Checky, metriky apod.
+```bash
+cd backend
+./mvnw spring-boot:run
+```
 
-## Odkaz na generovanou API dokumentaci
+### Frontend
 
-Swagger UI je dostupný na:
-http://localhost:8080/swagger-ui/index.html
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### Databáze
+
+Vytvořte si lokální instanci PostgreSQL 
+
+
+## Dokumentace
+
+### Uživatelská příručka
+Dostupná z aplikace
+
+### Administrátorská příručka
+Cesta: `manual/admin-manual.md`
+
+### Software Requirements Specification (SRS)
+Cesta: `documentation/SRS.md`
+
+### Software Design Document (SDD)
+Cesta: `documentation/SDD.md`
+
+## Funkce
+
+- Registrace a přihlášení uživatele (JWT)
+- Evidence klientů a obchodních případů
+- Kalendář napojený na případy a události
+- Generování faktur včetně stavu (zaplaceno, čekající, zrušeno)
+
+
+
+
