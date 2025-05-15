@@ -3,30 +3,68 @@
 ## 1. Úvod
 
 ### 1.1 Cíl dokumentu
-Popis účelu tohoto dokumentu, který je zaměřen na návrh systému a popis technických aspektů aplikace. Tento dokument by měl sloužit jako návod pro vývojáře při implementaci systému.
+Tento dokument slouží jako návrhový základ pro vývoj systému LeadLink CRM – webové aplikace určené pro freelancery (OSVČ) ke správě obchodních případů, klientů, kalendáře a fakturace. Jeho cílem je popsat technický návrh systému a architekturu tak, aby vývojový tým měl jasné podklady pro implementaci.
+
+Dokument zahrnuje návrh softwarové architektury, komunikace mezi komponentami, návrh databáze, popis API, uživatelského rozhraní a bezpečnostních mechanismů. Zajišťuje konzistenci mezi požadavky uvedenými v SRS a jejich implementací.
 
 ### 1.2 Rozsah systému
-Popis, jaké konkrétní části systému tento dokument pokrývá, např. backendové API, databázový model, struktura aplikace atd.
-
-### 1.3 Definice a zkratky
-Seznam specifických termínů a zkratek použitých v dokumentu.
+Tento dokument pokrývá návrh všech hlavních částí systému LeadLink CRM, konkrétně:
+  - Frontendovou část: React aplikace, komponentová struktura a interakce s API.
+  - Backendovou část: Aplikace postavená na Spring Boot, návrh REST API, business logika a bezpečnost.
+  - Databázový model: Návrh tabulek, relací a datových struktur v PostgreSQL.
+  - API specifikaci: Endpointy, jejich struktura, autentifikace a odpovědi.
+  - Bezpečnostní vrstvu: Ověření uživatelů pomocí JWT, ochrana dat, řízení přístupových práv.
+  - Návrh UI/UX: Struktura komponent, hlavní obrazovky a návrh interakcí.
 
 ---
 
 ## 2. Architektura systému
 
 ### 2.1 Architektura aplikace
-Popis základní architektury systému, např. zda používá monolitickou strukturu, mikroservisy, serverless architekturu, atd. Zde je možné připojit diagramy.
+
+Aplikace **LeadLink CRM** je postavena na **monolitické architektuře**, kde všechny hlavní funkcionality (autentifikace, správa klientů, obchodních případů, kalendáře a fakturace) běží v rámci jednoho backendového serveru. Tato architektura byla zvolena pro svou jednoduchost, snadnější nasazení a menší složitost v rámci první verze systému.
+
+Monolit je rozdělen do modulárních vrstev (kontroléry, služby, repository), ale všechny běží ve stejném procesu. S frontendem aplikace komunikuje prostřednictvím REST API.
+
+**Doporučený diagram**:
+- **Component Diagram** – znázorňující vztah mezi frontendem, backendem a databází.
+- Alternativně jednoduchý **Deployment Diagram**, pokud chceš vizualizovat i provozní prostředí (např. server, porty, připojení).
+
 
 ### 2.2 Komponenty systému
-Podrobný popis hlavních komponent systému, jejich odpovědnosti a vztahy mezi nimi. Komponenty mohou zahrnovat:
-- Frontend (React aplikace)
-- Backend (Spring Boot)
-- Databáze (PostgreSQL)
-- API komunikace
+
+Systém je složen z těchto hlavních komponent:
+
+#### Frontend (React)
+- Implementován v knihovně **React**.
+- Poskytuje uživatelské rozhraní pro interakci s aplikací.
+- Komunikuje s backendem pomocí HTTP požadavků (REST API).
+- Zodpovědný za správu stavu, UI/UX logiku a prezentaci dat.
+
+#### Backend (Spring Boot)
+- Vytvořen pomocí **Spring Boot** (Java).
+- Zajišťuje aplikační logiku, zpracování dat, autentifikaci a autorizaci.
+- Obsahuje vrstvy: kontroléry, služby, datové repository.
+- Exponuje REST API, přes které komunikuje s frontendem.
+
+#### Databáze (PostgreSQL)
+- Relační databáze sloužící pro uložení aplikačních dat.
+- Obsahuje tabulky pro uživatele, klienty, obchodní případy, faktury a události.
+- Backend přistupuje k databázi přes JPA/Hibernate.
+
+#### API komunikace
+- Komunikace mezi frontendem a backendem probíhá pomocí **RESTful API**.
+- Backend poskytuje zabezpečené endpointy pro CRUD operace nad jednotlivými entitami.
+- Autentifikace probíhá přes JWT (JSON Web Token).
 
 ### 2.3 Komunikace mezi komponentami
-Popis, jak jednotlivé komponenty komunikují mezi sebou, např. přes REST API, WebSockety, nebo jiný způsob.
+
+Všechny komponenty komunikují **přes REST API** vystavené backendem:
+
+- **Frontend** odesílá HTTP požadavky (GET, POST, PUT, DELETE) na backendové endpointy.
+- Backend tyto požadavky zpracuje, případně validuje, a přistupuje k databázi.
+- Backend vrací odpovědi ve formátu JSON.
+- JWT token je odesílán v hlavičce každého požadavku pro ověření oprávnění.
 
 ---
 
