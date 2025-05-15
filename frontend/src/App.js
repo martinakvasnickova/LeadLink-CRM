@@ -16,6 +16,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import UserCalendar from "./pages/private/UserCalendar";
 import Invoices from "./pages/private/Invoices";
+import Manual from "./pages/private/Manual";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
           <Route path="/cases" element={<ProtectedRoute><Cases/></ProtectedRoute>}/>
           <Route path="/user-calendar" element={<ProtectedRoute><UserCalendar/></ProtectedRoute>}/>
           <Route path="/invoices" element={<ProtectedRoute><Invoices/></ProtectedRoute>}/>
+          <Route path="/manual" element={<ProtectedRoute><Manual/></ProtectedRoute>}/>
+
           
         
         </Routes>

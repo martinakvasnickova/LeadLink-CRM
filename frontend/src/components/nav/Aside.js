@@ -33,7 +33,9 @@ export default function Aside() {
         </div>
 
         <div>
-          <button className="btn btn-outline-dark custom-button-primary-filled-purple">Podpora</button>
+          <button className="btn btn-outline-dark custom-button-primary-filled-purple">
+            <Link className="nav-link text-white" to="/manual">Nápověda</Link>
+          </button>
         </div>
         </nav>
     </>
