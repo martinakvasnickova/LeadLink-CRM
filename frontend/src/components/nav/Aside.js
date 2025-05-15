@@ -7,7 +7,8 @@ import '../../App.css'
 import { ReactComponent as BoardIcon } from '../../assets/icons/clipboard.svg';
 import { ReactComponent as ContactsIcon } from '../../assets/icons/person-rolodex.svg';
 import { ReactComponent as CalendarIcon } from '../../assets/icons/calendar3-week.svg';
-import { ReactComponent as CasesIcon } from '../../assets/icons/bar-chart-line.svg';
+import { ReactComponent as CasesIcon } from '../../assets/icons/suitcase-lg.svg';
+import { ReactComponent as InvoiceIcon } from '../../assets/icons/file-text.svg';
 
 
 export default function Aside() {
@@ -27,7 +28,7 @@ export default function Aside() {
                 
               <label>Obchod</label>
                 <li class="nav-item"><Link className="nav-link text-black" to="/cases"> <CasesIcon/> Případy</Link></li>
-                <li class="nav-item"><Link className="nav-link text-black" to="/invoices"> <CasesIcon/> Fakturace</Link></li>
+                <li class="nav-item"><Link className="nav-link text-black" to="/invoices"> <InvoiceIcon/> Fakturace</Link></li>
             </ul>
         </div>
 

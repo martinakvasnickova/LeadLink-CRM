@@ -38,6 +38,8 @@ public class InvoiceService {
         this.caseRepository = caseRepository;
     }
 
+
+
     public Invoice createInvoiceFromCase(InvoiceRequestDTO request, Cases selectedCase) {
         Users currentUser = getCurrentUser();
 
@@ -149,10 +151,25 @@ public class InvoiceService {
         document.add(new Paragraph("Faktura č.: " + invoice.getInvoiceNumber(), normal));
         document.add(new Paragraph("Datum vystavení: " + invoice.getIssueDate(), normal));
         document.add(new Paragraph("Datum splatnosti: " + invoice.getDueDate(), normal));
-        document.add(new Paragraph("Stav: " + invoice.getStatus(), normal));
         document.add(Chunk.NEWLINE);
 
-// Tabulka
+// --- Údaje o dodavateli ---
+        document.add(new Paragraph("Dodavatel:", normal));
+        document.add(new Paragraph("Název / Jméno: Martina Kvasničková", normal));
+        document.add(new Paragraph("Adresa: Pardubice I - Bílé Předměstí, Gebauerova 222", normal));
+        document.add(new Paragraph("IČO: 12345678", normal));
+        document.add(new Paragraph("DIČ: ....................", normal));
+        document.add(Chunk.NEWLINE);
+
+// --- Údaje o odběrateli ---
+        document.add(new Paragraph("Odběratel:", normal));
+        document.add(new Paragraph("Název / Jméno: " + invoice.getContact().getFirstname() + " " + invoice.getContact().getLastname(), normal));
+        document.add(new Paragraph("Adresa: Praha 2, Husova 18", normal));
+        document.add(new Paragraph("IČ: 23456789", normal));
+        document.add(new Paragraph("DIČ: ....................", normal));
+        document.add(Chunk.NEWLINE);
+
+// Tabulka s fakturačními údaji
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
         table.setSpacingBefore(10f);
@@ -170,24 +187,45 @@ public class InvoiceService {
         table.addCell("Popis");
         table.addCell(invoice.getDescription());
 
-        table.addCell("Částka");
-        table.addCell(invoice.getAmount() + " Kč");
-
+// Předvyplněné info z backendu
         table.addCell("Klient");
         table.addCell(invoice.getContact().getFirstname() + " " + invoice.getContact().getLastname());
 
         table.addCell("Vystavil");
         table.addCell(invoice.getUser().getFirstname() + " " + invoice.getUser().getLastname());
 
+
+// Připravené chlívečky pro sazbu a DPH
+
+        float amount = invoice.getAmount();
+        float dphRate = 0.21f;
+        float dph = (float) Math.round(amount * dphRate * 100) / 100;
+        float totalWithDph = (float) Math.round((amount + dph) * 100) / 100;
+
+        table.addCell("Základ daně");
+        table.addCell(amount + " Kč");
+
+        table.addCell("Sazba DPH");
+        table.addCell("21 %");
+
+        table.addCell("DPH");
+        table.addCell(dph + " Kč");
+
+        table.addCell("Celkem vč. DPH");
+        table.addCell(totalWithDph + " Kč");
+
         document.add(table);
 
-// Podpisová poznámka
+// --- Údaje k platbě ---
+        document.add(new Paragraph("Bankovní spojení:", normal));
+        document.add(new Paragraph("Číslo účtu: 123443215678 / 2222", normal));
+        document.add(new Paragraph("Variabilní symbol: 2024-04", normal));
         document.add(Chunk.NEWLINE);
+
+// Podpisová poznámka
         document.add(new Paragraph("Děkujeme za spolupráci.", normal));
 
         document.close();
-
         return baos.toByteArray();
     }
-
 }

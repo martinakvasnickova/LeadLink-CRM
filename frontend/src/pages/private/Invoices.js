@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Aside from '../../components/nav/Aside';
 import NavbarPrivate from '../../components/nav/NavbarPrivate';
 import axiosInstance from '../../axiosConfig';
-import AddInvoice from '../../hooks/invoices/AddInvoice'; // Vytvoříme za chvíli
-import EditInvoice from '../../hooks/invoices/EditInvoice'; // Placeholder
+import AddInvoice from '../../hooks/invoices/AddInvoice'; 
+import EditInvoice from '../../hooks/invoices/EditInvoice'; 
 import '../../App.css';
 import './css/Layout.css';
+
+import { ReactComponent as AddIcon } from '../../assets/icons/plus-lg.svg'
+import { ReactComponent as EditIcon } from '../../assets/icons/three-dots-vertical.svg'
+import { ReactComponent as DownloadInvoiceIcon } from '../../assets/icons/arrow-down-circle.svg'
 
 export default function Invoices() {
   const [invoices, setInvoices] = useState([]);
@@ -54,7 +58,7 @@ export default function Invoices() {
             data-bs-toggle="modal"
             data-bs-target="#generateInvoiceModal"
           >
-            Generovat fakturu
+            <AddIcon/>
           </button>
         </div>
 
@@ -69,7 +73,7 @@ export default function Invoices() {
               <th>Částka</th>
               <th>Klient</th>
               <th>Stav</th>
-              <th>Akce</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -83,18 +87,18 @@ export default function Invoices() {
                 <td>{invoice.status}</td>
                 <td>
                   <button
-                    className="btn btn-outline-dark"
+                        className="btn btn-outline-dark mx-1 custom-button-for-icon"
+                        onClick={() => downloadPdf(invoice.id)}
+                        >
+                        <DownloadInvoiceIcon/>
+                  </button>
+                  <button
+                    className="btn btn-outline-dark custom-button-for-icon"
                     data-bs-toggle="modal"
                     data-bs-target="#editInvoiceModal"
                     onClick={() => setSelectedInvoice(invoice)}
                   >
-                    Upravit
-                  </button>
-                  <button
-                        className="btn btn-outline-dark mx-1"
-                        onClick={() => downloadPdf(invoice.id)}
-                        >
-                        Stáhnout PDF
+                    <EditIcon/>
                   </button>
                 </td>
               </tr>

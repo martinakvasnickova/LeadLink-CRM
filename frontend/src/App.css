@@ -15,7 +15,7 @@
   --font-main: 'WorkSans-Regular';
   --color-primary-purple: #635ee2;
   --color-primary-olive: #15241D;
-  --color-primary-mint: #D3F5CF;
+  --color-primary-mint: #B5FFDC;
   --color-primary-blue: #A8DBFA;
   --color-background-gray: #F5F6FC;
   --color-secondary-text-gray: #BEBEBE;
@@ -70,6 +70,12 @@ button{
   font-family: var(--font-main) !important;
 }
 
+.custom-button-primary-outline-gray{
+  border: 1px solid var(--color-secondary-text-gray) !important;
+  font-family: var(--font-main) !important;
+  border-radius: 12px !important;
+}
+
 .custom-button-primary-filled-olive{
   background-color: var(--color-primary-olive) !important;
   color: white !important;
@@ -99,7 +105,11 @@ button{
 .custom-button-primary-filled-mint{
   background-color: var(--color-primary-mint) !important;
   color: black !important;
-  border: 1px solid var(--color-secondary-text-gray) !important;
+  border: 1px solid var(--color-primary-olive) !important;
   font-family: var(--font-main) !important;
+}
 
+.custom-button-for-icon{
+  background-color: transparent !important;
+  border: none!important;
 }

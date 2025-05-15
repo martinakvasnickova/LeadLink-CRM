@@ -12,6 +12,8 @@ import axiosInstance from '../../axiosConfig';
 import AddEvent from "../../hooks/events/AddEvent";
 import EditEvent from "../../hooks/events/EditEvent";
 
+import { ReactComponent as AddIcon } from '../../assets/icons/plus-lg.svg'
+
 export default function UserCalendar() {
   const localizer = momentLocalizer(moment);
   const [events, setEvents] = useState([]);
@@ -37,7 +39,7 @@ export default function UserCalendar() {
         start: new Date(event.startAt),
         end: new Date(event.endAt),
         title: event.name,
-        caseId: event.caseId, // >>> přidat sem!
+        caseId: event.caseId, 
       }));
   
       setEvents(formattedEvents);
@@ -60,7 +62,7 @@ export default function UserCalendar() {
       <div className='secondary-nav'>
         <h3>Kalendář</h3>
         <button type="button" className="btn custom-button-primary-filled-mint" data-bs-toggle="modal" data-bs-target="#addEventModal">
-          Přidat Událost
+          <AddIcon/>
         </button>
       </div>
         <AddEvent onSuccess={loadEvents}/>
@@ -81,7 +83,6 @@ export default function UserCalendar() {
         />
       </main>
 
-      {/* Modal pro editaci události */}
       {showModal && selectedEvent && (
         <EditEvent event={selectedEvent} setShowModal={setShowModal} refreshEvent={loadEvents} />
       )}

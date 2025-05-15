@@ -10,6 +10,11 @@ import EditCase from '../../hooks/cases/EditCase';
 import '../../App.css';
 import './css/Layout.css';
 
+import { ReactComponent as AddIcon } from '../../assets/icons/plus-lg.svg'
+import { ReactComponent as AddContactIcon } from '../../assets/icons/person-add.svg'
+import { ReactComponent as EditIcon } from '../../assets/icons/three-dots-vertical.svg'
+import { ReactComponent as DeleteIcon } from '../../assets/icons/trash3.svg'
+
 export default function Cases() {
   const [businessCases, setBusinessCases] = useState([]);
   const [contacts, setContacts] = useState([]);
@@ -32,7 +37,7 @@ export default function Cases() {
   };
 
   const loadContacts = async () => {
-    const result = await axiosInstance.get('http://localhost:8080/contact'); 
+    const result = await axiosInstance.get('http://localhost:8080/contact/user'); 
     setContacts(result.data);
   };
 
@@ -45,7 +50,7 @@ export default function Cases() {
     console.log("Odesílám správný payload na server:", {
       contactId: contactId,
       caseId: caseId,
-      role: "Main Contact" // nastav roli, nebo ji dej třeba dynamicky
+      role: "Main Contact" 
     });
   
     await axiosInstance.post('http://localhost:8080/contact-case', {
@@ -54,7 +59,7 @@ export default function Cases() {
       role: "Main Contact"
     });
   
-    loadContactCases(); // !! Správně načíst aktualizované kontakty
+    loadContactCases(); 
   };
   
   
@@ -65,11 +70,7 @@ export default function Cases() {
     setContactCases(result.data);
   };
 
-  //
-  //const getContactForCase = (caseId) => {
-  //  const relation = contactCases.find(cc => cc.cases.id === caseId);
-  //  return relation ? relation.contact : null;
-  //};
+
 
   const getContactForCase = (caseId) => {
     const relation = contactCases.find(cc => cc.caseId === caseId);
@@ -88,7 +89,7 @@ export default function Cases() {
           <h3>Případy</h3>
 
           <button type="button" className="btn custom-button-primary-filled-mint" data-bs-toggle="modal" data-bs-target="#addCaseModal">
-            Přidat Případ
+            <AddIcon/>
           </button>
         </div>
 
@@ -101,7 +102,7 @@ export default function Cases() {
               <th scope="col">Název</th>
               <th scope="col">Cena</th>
               <th scope="col">Kontakt</th>
-              <th scope="col">Akce</th>
+              <th scope="col"></th>
             </tr>
           </thead>
 
@@ -119,25 +120,25 @@ export default function Cases() {
                   </td>
                 <td>
                   <button
-                    className="btn btn-outline-dark mx-2"
+                    className="btn btn-outline-dark mx-2 custom-button-for-icon"
                     data-bs-toggle="modal"
                     data-bs-target="#editCaseModal"
                     onClick={() => setSelectedBusinessCase(businessCase)}
                   >
-                    Upravit
+                    <EditIcon/>
                   </button>
 
-                  <button className="btn btn-outline-dark mx-2" onClick={() => deleteBusinessCase(businessCase.id)}>
-                    Smazat
+                  <button className="btn btn-outline-dark mx-2 custom-button-for-icon" onClick={() => deleteBusinessCase(businessCase.id)}>
+                    <DeleteIcon/>
                   </button>
 
                   <button
-                    className="btn btn-outline-dark mx-2"
+                    className="btn btn-outline-dark mx-2 custom-button-for-icon"
                     data-bs-toggle="modal"
                     data-bs-target="#attachContactModal"
                     onClick={() => setSelectedBusinessCase(businessCase)}
                   >
-                    Připojit Kontakt
+                    <AddContactIcon/>
                   </button>
                 </td>
               </tr>
@@ -157,7 +158,7 @@ export default function Cases() {
               <h6>Vyberte kontakt:</h6>
               <select
   className="form-select"
-  onChange={(e) => setSelectedContact(Number(e.target.value))}   // DŮLEŽITÉ!!
+  onChange={(e) => setSelectedContact(Number(e.target.value))}   
   defaultValue=""
 >
 

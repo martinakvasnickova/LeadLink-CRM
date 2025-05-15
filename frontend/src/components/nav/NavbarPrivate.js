@@ -9,6 +9,7 @@ import'../../App.css';
 import { ReactComponent as SettingsIcon } from '../../assets/icons/settings-outline.svg';
 import { ReactComponent as BellIcon } from '../../assets/icons/bell-outline.svg';
 import { ReactComponent as PersonIcon } from '../../assets/icons/person-outline.svg';
+import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg'
 
 export default function NavbarPrivate() {
 
@@ -26,7 +27,7 @@ export default function NavbarPrivate() {
       <div className="container-fluid">
         <form className="d-flex" role="search">
           <input className="form-control me-2 custom-search" type="search" placeholder="Kontakt" aria-label="Search"/>
-          <button className="btn btn-outline-dark custom-button-primary-outline-blue" type="submit">Hledat</button>
+          <button className="btn btn-outline-dark custom-button-for-icon" type="submit"><SearchIcon/></button>
         </form>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
@@ -42,7 +43,7 @@ export default function NavbarPrivate() {
       <SettingsIcon className = 'icon'/>
       <BellIcon className = 'icon'/>
       
-      <button className='btn custom-button-primary-outline-blue' onClick={logoutUser}>Logout</button>
+      <button className='btn custom-button-primary-outline-gray' onClick={logoutUser}>Odhlášení</button>
     </div>
   </div>
 </nav>

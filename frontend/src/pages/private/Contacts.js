@@ -11,6 +11,10 @@ import '../../App.css';
 import './css/Layout.css';
 import axiosInstance from '../../axiosConfig';
 
+import { ReactComponent as AddIcon } from '../../assets/icons/plus-lg.svg'
+import { ReactComponent as EditIcon } from '../../assets/icons/three-dots-vertical.svg'
+import { ReactComponent as DeleteIcon } from '../../assets/icons/trash3.svg'
+
 export default function Contacts() {
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
@@ -41,7 +45,7 @@ export default function Contacts() {
         <h3>Adresář</h3>
 
         <button type="button" className="btn custom-button-primary-filled-mint" data-bs-toggle="modal" data-bs-target="#addContactModal">
-          Přidat Kontakt
+          <AddIcon/>
         </button>
         <AddContact onSuccess={loadContacts} />
       </div>
@@ -53,7 +57,7 @@ export default function Contacts() {
               <th scope="col">Jméno</th>
               <th scope="col">Příjmení</th>
               <th scope="col">Email</th>
-              <th scope="col">Action</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -65,15 +69,10 @@ export default function Contacts() {
                 <td>{contact.email}</td>
                 <td>
 
-                  <button className="btn btn-outline-dark mx-2" data-bs-toggle="modal" data-bs-target="#editContactModal" onClick={() => setSelectedContact(contact)}>
-                    Upravit
+                  <button className="btn btn-outline-dark mx-2 custom-button-for-icon" onClick={()=>deleteContact(contact.id)}><DeleteIcon/></button>
+                  <button className="btn btn-outline-dark mx-2 custom-button-for-icon" data-bs-toggle="modal" data-bs-target="#editContactModal" onClick={() => setSelectedContact(contact)}>
+                    <EditIcon/>
                   </button>
-                  
-                  <button className="btn btn-outline-dark mx-2" data-bs-toggle="modal" data-bs-target="#editContactModal" onClick={() => setSelectedContact(contact)}>
-                    Upravit
-                  </button>
-
-                  <button className="btn btn-outline-dark mx-2" onClick={()=>deleteContact(contact.id)}>Smazat</button>
                 </td>
               </tr>
             ))}
