@@ -1,6 +1,6 @@
 # LeadLink CRM
 
-**LeadLink CRM** je jednoduchý CRM systém navržený speciálně pro freelancery (OSVČ). Umožňuje správu klientů, obchodních případů, kalendáře a generování faktur.
+**LeadLink CRM** je jednoduchý CRM systém navržený speciálně pro freelancery. Umožňuje správu klientů, obchodních případů, kalendáře a generování faktur.
 
 ## Struktura projektu
 
