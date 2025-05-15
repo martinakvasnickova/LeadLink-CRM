@@ -64,7 +64,7 @@ Cesta: `documentation/SDD.md`
 - Registrace a přihlášení uživatele (JWT)
 - Evidence klientů a obchodních případů
 - Kalendář napojený na případy a události
-- Generování faktur včetně stavu (zaplaceno, čekající, zrušeno)
+- Generování faktur včetně sledování stavu (zaplaceno, čekající, zrušeno)
 
 
 
