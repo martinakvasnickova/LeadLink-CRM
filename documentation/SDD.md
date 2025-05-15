@@ -67,6 +67,36 @@ Všechny komponenty komunikují **přes REST API** vystavené backendem:
 
 ![image](https://github.com/user-attachments/assets/ccdc60ab-a40a-491f-adbe-ab6106edd9dd)
 
+### 2.4 Struktura projektu
+
+Tato sekce popisuje základní složkovou strukturu (balíčkování) frontendové a backendové části systému LeadLink CRM. Cílem je poskytnout přehled, kde se jednotlivé části logiky a komponent nachází, aby se usnadnila orientace v kódu.
+
+#### Backend – Spring Boot (`/src/main/java/com/leadlink/backend`)
+
+| Balíček             | Popis                                                                 |
+|---------------------|-----------------------------------------------------------------------|
+| `configuration`     | Nastavení OpenApiConfig                  |
+| `controller`        | REST kontroléry – mapují HTTP požadavky na služby.                   |
+| `dto`               | Přenosové objekty (Data Transfer Objects) pro komunikaci s klientem. |
+| `exception`         | Vyjímky (např. `CaseNotFoundException`) a `GlobalExceptionHandler`|
+| `model`             | Datové entity (JPA), např. `Users`, `Cases`, `Contact`.              |
+| `repository`        | JPA repozitáře pro přístup do databáze.                              |
+| `security`          | JWT filtry, Spring Security konfigurace, user detail implementace.   |
+| `service`           | Business logika aplikace.                                             |
+
+#### Frontend – React (`/src`)
+
+| Složka              | Popis                                                                 |
+|---------------------|------------------------------------------------------------------------|
+| `assets/`           | Použité ikony a obrázky                    |
+| `components/`       | Znovupoužitelné komponenty UI (např. navigace)    |
+| `context/`          | Kontexty pro globální stav (např. přihlášený uživatel)      |
+| `fonts/`            | Použité fonty    |
+| `hooks/`            | Vlastní hooky (např.`addCase.js`)                    |
+| `pages/`            | Rozdělené na Private a Public obrazovky (např. `Dashboard.jsx`, `Clients.jsx`, `Invoices.jsx`). |
+| `routes/`           | Nastavení `ProtectedRoute.js`                   |
+| `slices/`           | Nastavení `AuthSlice.js`                   |
+
 
 ---
 
@@ -152,11 +182,104 @@ Níže je uveden přehled hlavních REST API endpointů systému LeadLink CRM. E
 - **GET /contact-event/contact/{contactId}** – Získat události dle kontaktu
 - **GET /contact-event/event/{eventId}** – Získat kontakty dle události
 
+### 3.3 Odkaz na generovanou API dokumentaci
+Swagger UI je dostupný na: http://localhost:8080/swagger-ui/index.html
 
-### 3.3 Autentizace a autorizace
+---
+
+## 4. Databázový design
+
+### 4.1 Databázová architektura
+
+Systém **LeadLink CRM** používá relační databázi **PostgreSQL**. Databázová struktura je navržena tak, aby reflektovala entity a vztahy mezi uživateli, klienty, obchodními případy, fakturami, událostmi a jejich vzájemnými propojeními.
+
+#### Typické vztahy:
+- **1:N** – Uživatel může mít více případů, kontaktů, faktur, událostí.
+- **M:N** – Spojení mezi kontakty a případy/událostmi je řešeno pomocí spojovacích tabulek `contact_case`, `contact_event`, `case_event`.
+
+### 4.2 ERD (Entity Relationship Diagram)
+![image](https://github.com/user-attachments/assets/ee5306a6-8e54-4b4c-a3cc-a1a69b2483f6)
+
+
+### 4.3 Popis tabulek
+#### users
+- `id` (int, PK)
+- `email` (varchar)
+- `firstname` (varchar)
+- `lastname` (varchar)
+- `username` (varchar)
+- `password` (varchar)
+- `password_hash` (varchar)
+- `role` (enum: USER, ADMIN)
+
+#### cases
+- `id` (int, PK)
+- `name` (varchar)
+- `price` (int)
+- `user_id` (int, FK → users.id)
+
+#### contact
+- `id` (int, PK)
+- `email` (varchar)
+- `firstname` (varchar)
+- `lastname` (varchar)
+- `user_id` (int, FK → users.id)
+
+#### contact_case
+- `id` (int, PK)
+- `role` (varchar)
+- `case_id` (int, FK → cases.id)
+- `contact_id` (int, FK → contact.id)
+
+#### events
+- `id` (int, PK)
+- `created_at` (timestamp)
+- `end_at` (timestamp)
+- `name` (varchar)
+- `start_at` (timestamp)
+- `user_id` (int, FK → users.id)
+- `case_id` (int, FK → cases.id)
+
+#### case_event
+- `id` (int, PK)
+- `case_id` (int, FK → cases.id)
+- `event_id` (int, FK → events.id)
+
+#### contact_event
+- `id` (int, PK)
+- `contact_id` (int, FK → contact.id)
+- `event_id` (int, FK → events.id)
+
+#### invoice
+- `id` (int, PK)
+- `amount` (decimal)
+- `description` (varchar)
+- `due_date` (date)
+- `invoice_number` (varchar)
+- `issue_date` (date)
+- `status` (varchar)
+- `case_id` (int, FK → cases.id)
+- `contact_id` (int, FK → contact.id)
+- `user_id` (int, FK → users.id)
+
+---
+
+## 5. Návrh uživatelského rozhraní (UI)
+
+### 5.1 Struktura a komponenty UI
+Popis hlavních komponent uživatelského rozhraní, jaké budou sekce, jaké funkce budou implementovány a jaké interakce jsou očekávány.
+
+### 5.2 UX Design
+Podrobný popis uživatelského zážitku, jak by mělo uživatelské rozhraní vypadat a jak by mělo fungovat. Může to zahrnovat diagramy nebo mockupy.
+
+---
+
+## 6. Zabezpečení 
+
+### 6.1 Autentizace a autorizace
 Systém **LeadLink CRM** využívá ke správě přístupu k chráněným zdrojům **autentizaci pomocí JWT (JSON Web Token)** a **autorizaci na základě rolí uživatelů**.
 
-#### 3.3.1 Průběh:
+#### 6.1.1 Průběh:
 
 1. **Uživatel odešle přihlašovací požadavek** na endpoint `POST /user/login` s `username` a `password`.
 2. Backend pomocí služby `UserService` ověří přihlašovací údaje.
@@ -171,7 +294,7 @@ Systém **LeadLink CRM** využívá ke správě přístupu k chráněným zdroj�
 Authorization: Bearer <JWT>
 ```
 
-#### 3.3.2 Zpracování tokenu:
+#### 6.1.2 Zpracování tokenu:
 - Token je při každém požadavku zkontrolován filtrem `JwtAuthFilter`, který:
   - extrahuje JWT z hlavičky,
   - ověří jeho platnost (`JwtService.isTokenValid()`),
@@ -179,7 +302,7 @@ Authorization: Bearer <JWT>
   - nastaví ověřeného uživatele do `SecurityContext`.
 
 
-#### 3.3.3 Autorizace (Role-based access control)
+#### 6.1.3 Autorizace (Role-based access control)
 
 Systém definuje dvě hlavní role uživatelů pomocí výčtového typu `Role`:
 
@@ -190,7 +313,7 @@ public enum Role {
 }
 ```
 
-#### 3.3.4 Role a oprávnění:
+#### 6.1.4 Role a oprávnění:
 
 - `USER` (běžný uživatel):
   - může spravovat vlastní klienty, případy, události, faktury,
@@ -204,69 +327,21 @@ public enum Role {
 .requestMatchers("/admin/**", "/user/register-admin").hasRole("ADMIN")
 ```
 
-#### 3.3.5 Zabezpečení aplikace (Spring Security)
+#### 6.2 Zabezpečení aplikace (Spring Security)
 
 - Konfigurace bezpečnosti je řešena pomocí třídy `SecurityConfig`.
 - Používá se `BCryptPasswordEncoder` pro šifrování hesel.
 - Autentizace je spravována filtrem `JwtAuthFilter`, který je zaregistrován **před** standardní autentifikační logikou (`UsernamePasswordAuthenticationFilter`).
 
-
 ---
 
-## 4. Databázový design
+## 7. Logování a monitoring
 
-### 4.1 Databázová architektura
-Popis struktury databáze, jaké tabulky budou použity a jaké vztahy mezi nimi existují (např. 1:N, N:M).
+### 7.1 Logování 
+Přihlášení, registrace, vytvoření, mazání a editace případů i uživatelů jsou logovány pomocí SLF4J (Logger).
+Chyby validace, neočekávané výjimky a chyby přístupu jsou logovány s úrovní WARN nebo ERROR.
 
-### 4.2 ERD (Entity Relationship Diagram)
-Diagram, který znázorňuje vztahy mezi entitami v databázi. Tento diagram může být připojen jako obrázek.
+### 7.2 Monitoring
+rojekt obsahuje základy pro Spring Boot Actuator (endpoint /actuator/metrics).
 
-### 4.3 Popis tabulek
-Podrobný popis každé tabulky, včetně jejich sloupců a datových typů. Můžete zde zahrnout informace o primárních klíčích, cizích klíčích, indexech atd.
-
-#### Příklad:
-- **Users**: Tabulka pro uživatele.
-  - `id` (int, primary key)
-  - `email` (varchar, unique)
-  - `password` (varchar)
-
----
-
-## 5. Návrh uživatelského rozhraní (UI)
-
-### 5.1 Struktura a komponenty UI
-Popis hlavních komponent uživatelského rozhraní, jaké budou sekce, jaké funkce budou implementovány a jaké interakce jsou očekávány.
-
-### 5.2 UX Design
-Podrobný popis uživatelského zážitku, jak by mělo uživatelské rozhraní vypadat a jak by mělo fungovat. Může to zahrnovat diagramy nebo mockupy.
-
----
-
-## 6. Bezpečnostní aspekty
-
-### 6.1 Autentifikace a autorizace
-Podrobný popis, jak bude systém zabezpečen proti neoprávněnému přístupu, jaké metody autentifikace budou použity (např. OAuth, JWT), a jak bude probíhat autorizace pro různé role (admin, uživatel).
-
-### 6.2 Šifrování
-Popis, jak budou citlivé informace (např. hesla) šifrovány, jaké šifrovací algoritmy budou použity a jaká bezpečnostní opatření budou přijata.
-
----
-
-## 7. Výkon a škálovatelnost
-
-### 7.1 Monitorování
-Aplikace je monitorována 
-
-### 7.2 Škálovatelnost
-Jak bude systém navržen, aby zvládal rostoucí počet uživatelů, dat a požadavků. Zde můžete specifikovat horizontální a vertikální škálování.
-
----
-
-## 10. Přílohy
-
-### 10.1 Diagramy
-Připojte diagramy, které ilustrují návrh systému, architekturu nebo databázové schéma.
-
-### 10.2 Kódové ukázky
-Pokud je to potřeba, připojte ukázky kódu nebo fragmenty kódu, které ilustrují klíčové části implementace.
 
