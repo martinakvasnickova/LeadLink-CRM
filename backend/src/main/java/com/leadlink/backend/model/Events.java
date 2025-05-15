@@ -39,6 +39,8 @@ public class Events {
         this.user = user;
     }
 
+    // Gettery a settery
+
     public Cases getCases() {
         return cases;
     }

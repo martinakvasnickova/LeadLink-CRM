@@ -31,6 +31,6 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
-        return new UserPrincipal(user);  // Vrátíme UserPrincipal s instancí Users
+        return new UserPrincipal(user);
     }
 }

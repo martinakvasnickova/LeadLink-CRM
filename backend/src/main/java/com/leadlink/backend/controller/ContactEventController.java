@@ -86,38 +86,4 @@ public class ContactEventController {
                 contactEvent.getEvent() != null ? contactEvent.getEvent().getId() : null
         );
     }
-
-    /**
-
-    @PostMapping
-    public ContactEvent addContactEvent(@RequestBody ContactEvent contactEvent){
-        return contactEventService.addContactEvent(contactEvent);
-    }
-
-    @GetMapping
-    public List<ContactEvent> getAllContactEvent(){
-        logger.info("Načítám všechna propojení kontaktů a eventů");
-        return contactEventService.getAllContactEvent();
-    }
-
-    @GetMapping("/contact/{contactId}")
-    public List<ContactEvent> getContactEventsByContact(@PathVariable Long contactId){
-        logger.info("Načítám propojení kontaktu s ID {}", contactId);
-        return contactEventService.getContactEventsByContact(contactId);
-    }
-
-    @GetMapping("/event/{eventId}")
-    public List<ContactEvent> getContactEventsByEvent(@PathVariable Long eventId){
-        logger.info("Načítám propojení eventu s ID {}", eventId);
-        return contactEventService.getContactEventsByEvent(eventId);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteContactEvent(@PathVariable Long id){
-        contactEventService.deleteContactEvent(id);
-    }
-
-    **/
-
-
 }

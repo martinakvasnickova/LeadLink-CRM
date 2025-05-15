@@ -32,7 +32,7 @@ public class Invoice {
     @JoinColumn(name = "contact_id", nullable = false)
     private Contact contact;
 
-    // --- Gettery a settery ---
+    //Gettery a settery
 
     public Long getId() {
         return id;

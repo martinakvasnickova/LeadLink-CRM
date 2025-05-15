@@ -9,9 +9,9 @@ public class EventDTO {
     private LocalDateTime createdAt;
     private LocalDateTime startAt;
     private LocalDateTime endAt;
-    private String username;   // vlastník eventu (uživatel)
-    private Long caseId;       // připojený případ
-    private String caseName;   // název případu
+    private String username;
+    private Long caseId;
+    private String caseName;
 
     public EventDTO(Long id, String name, LocalDateTime createdAt, LocalDateTime startAt, LocalDateTime endAt, String username, Long caseId, String caseName) {
         this.id = id;
