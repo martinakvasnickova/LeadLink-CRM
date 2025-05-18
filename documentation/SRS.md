@@ -16,7 +16,6 @@
   - Role: Freelancer (User)
   - Role: Administrátor (Admin)
 - 2.3 Předpoklady a omezení
-- 2.4 Diagram tříd (UML Class Diagram)
 
 #### 3. Funkční požadavky
 - 3.1 Podrobně popsané funkcionality
@@ -115,15 +114,6 @@ Aplikace **LeadLink CRM** je určena především pro freelancery, kteří potř
 - **Frontend**: React.
 - **Databáze**: PostgreSQL.
 
-### 2.4 Diagram tříd (UML Class Diagram)
-
-Následující UML třídní diagram poskytuje logický pohled na hlavní entity systému LeadLink CRM a jejich vztahy. Slouží k pochopení struktury dat bez vazby na konkrétní technologii nebo databázovou implementaci.
-
-Diagram znázorňuje klíčové entity jako jsou **Uživatel**, **Klient**, **Obchodní případ**, **Faktura** a **Kalendářní událost**, a popisuje, jak spolu tyto entity souvisejí. Vztahy mezi třídami odrážejí základní obchodní logiku systému – například že obchodní případ je přiřazen ke konkrétnímu klientovi a může být propojen s kalendářní událostí nebo fakturou.
-
-![image](https://github.com/user-attachments/assets/4e9340b0-5976-48ee-9ed8-f53792245c47)
-
-
 ---
 
 ## 3. Funkční požadavky
@@ -216,8 +206,6 @@ Diagram znázorňuje klíčové entity jako jsou **Uživatel**, **Klient**, **Ob
 
 
 ### 3.3 Use Case Diagram
-![image](https://github.com/user-attachments/assets/a454986d-1f29-44fb-8a42-1035d928a8da)
-
 
 ---
 

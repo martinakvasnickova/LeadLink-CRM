@@ -91,8 +91,6 @@ Aplikace **LeadLink CRM** je postavena na **monolitické architektuře**, kde v�
 
 Monolit je rozdělen do vrstev (kontroléry, služby, repository), ale všechny běží ve stejném procesu. S frontendem aplikace komunikuje prostřednictvím REST API.
 
-![image](https://github.com/user-attachments/assets/9e437c24-40d6-4fcb-bff1-eb1d41edf75a)
-
 
 
 ### 2.2 Komponenty systému
@@ -130,7 +128,7 @@ Všechny komponenty komunikují **přes REST API** vystavené backendem:
 - Backend vrací odpovědi ve formátu JSON.
 - JWT token je odesílán v hlavičce každého požadavku pro ověření oprávnění.
 
-![image](https://github.com/user-attachments/assets/ccdc60ab-a40a-491f-adbe-ab6106edd9dd)
+
 
 ### 2.4 Struktura projektu
 
@@ -263,7 +261,7 @@ Systém **LeadLink CRM** používá relační databázi **PostgreSQL**. Databáz
 - **M:N** – Spojení mezi kontakty a případy/událostmi je řešeno pomocí spojovacích tabulek `contact_case`, `contact_event`, `case_event`.
 
 ### 4.2 ERD (Entity Relationship Diagram)
-![image](https://github.com/user-attachments/assets/ee5306a6-8e54-4b4c-a3cc-a1a69b2483f6)
+
 
 
 ### 4.3 Popis tabulek
